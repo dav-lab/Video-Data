@@ -7,8 +7,8 @@ import bisect
 import os
 import isodate
 
-APIKEY='API_KEY'
-VIDEOID='ID'
+APIKEY='APIKEY'
+VIDEOID='VIDEO_ID'
 info=json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2Cstatistics&id='+VIDEOID+'&key='+APIKEY).content)
 vidLength=info['items'][0]['contentDetails']['duration']
 
@@ -126,11 +126,30 @@ def combineAllUsers(listOfFiles):
 
 def final(listDict):
     merged={}
+    count={}
     for d in listDict:
         for k in d:
             if k not in merged:
                 merged[k]=d[k]
+                count[k]=1
             else:
                 merged[k]+=d[k]
-    with open('data.json', 'w') as outfile:
-        json.dump(merged, outfile)
+                count[k]+=1
+    return count,merged
+
+
+def countAndLength((count,merged),length):
+    everything={}
+    for k in count:
+        d={}
+        d['viewCount']=count[k]
+        d['segments']=merged[k]
+        try:
+            d['length']=length[k]
+        except KeyError:
+            d['length']='not available'
+        everything[k]=d
+    with open('finalData.json', 'w') as outfile:
+        json.dump(everything, outfile)
+    
+        
