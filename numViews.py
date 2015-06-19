@@ -7,6 +7,7 @@
 import json
 from collections import Counter
 
+# didn't end up using this
 def findOverlaps(viewList):
     '''Helper function for videoViewDicts() that returns a list
         of lists of interval pairs that overlap.
@@ -54,18 +55,11 @@ def videoViewDicts(infoFile):
     totalViews=dict((k, dict(v)) for k, v in viewsDict.iteritems()) # gets rid of "counter" word
     return totalViews
     
-        
-     
-    ######## FINDS INTESECTIONS
-    #for interval in overlaps:
-    #    range1 = set(range(interval[0][0],interval[0][1]))
-    #    range2 = set(range(interval[1][0],interval[1][1]))
-    #    print range1.intersection(range2)
-    ########
     
 # TESTING
 json_data = open("finalData.json").read() 
 videoInfo = json.loads(json_data)  
 #print videoViewDicts(videoInfo)  
 allViews = videoViewDicts(videoInfo)
-json.dump(allViews,open('allViews.json','w'))#dump takes object and open file for writing  
+json.dump(allViews,open('allViews.json','w'))#dump takes object and open file for writing 
+
