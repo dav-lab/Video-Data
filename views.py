@@ -61,5 +61,5 @@ json_data = open("finalData.json").read()
 videoInfo = json.loads(json_data)  
 #print videoViewDicts(videoInfo)  
 allViews = videoViewDicts(videoInfo)
-json.dump(allViews,open('allViews.json','w'))#dump takes object and open file for writing 
+json.dump(allViews,open('numViewsOneVideo.json','w'))#dump takes object and open file for writing 
 
