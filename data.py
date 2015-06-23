@@ -7,8 +7,8 @@ import bisect
 import os
 import isodate
 
-APIKEY='AIzaSyCwPp1xTIGxn4kekI4vslk_lJcF6zfMzek'
-VIDEOID='2Y5CrREsJ-4'
+APIKEY='KEY'
+VIDEOID='ID'
 info=json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2Cstatistics&id='+VIDEOID+'&key='+APIKEY).content)
 vidLength=info['items'][0]['contentDetails']['duration']
 
