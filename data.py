@@ -7,8 +7,8 @@ import bisect
 import os
 import isodate
 
-APIKEY='APIKEY'
-VIDEOID='VIDEO_ID'
+APIKEY='AIzaSyCwPp1xTIGxn4kekI4vslk_lJcF6zfMzek'
+VIDEOID='2Y5CrREsJ-4'
 info=json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2Cstatistics&id='+VIDEOID+'&key='+APIKEY).content)
 vidLength=info['items'][0]['contentDetails']['duration']
 
@@ -42,6 +42,8 @@ def getLengths():
             secs=parsedT.total_seconds()
             v[i]=secs
     return v
+
+length=getLengths()
 
 def generateVideoDict(fileName):
     filename=json.load(open(fileName))
@@ -97,13 +99,7 @@ def parseTimes(listTuples):
             else:
                 diff=listTuples[i+1][1]-listTuples[i][1]
                 end=start+diff.total_seconds()
-            intervals.append((start,end))
-            i+=1
-        elif listTuples[i][0]==type2:
-            if listTuples[i+1][0]==type1:
-                start=listTuples[i+1][2]
-                diff=listTuples[i+2][1]-listTuples[i+1][1]
-                end=start+diff.total_seconds()
+            intervals.append([start,end])
             i+=1
         else:
             i+=1
@@ -149,7 +145,14 @@ def countAndLength((count,merged),length):
         except KeyError:
             d['length']='not available'
         everything[k]=d
+    return everything
+
+
+def clean(all):
+    for key in all:
+        for i in all[key]['segments']:
+            if i[1]>all[key]['length']:
+                i[1]=all[key]['length']
     with open('finalData.json', 'w') as outfile:
-        json.dump(everything, outfile)
-    
-        
+        json.dump(all, outfile)
+                
