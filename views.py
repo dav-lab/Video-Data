@@ -1,8 +1,5 @@
 #Amanda Foun
-#numViews.py creates a list of dictionaries which contain info about the number of video views
-
-#NOTES
-#round the numbers
+#views.py creates a list of dictionaries which contain info about the number of video views
 
 import json
 from collections import Counter

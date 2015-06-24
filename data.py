@@ -7,6 +7,7 @@ import bisect
 import os
 import isodate
 
+
 #APIKEY='KEY'
 #VIDEOID='ID'
 #info=json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2Cstatistics&id='+VIDEOID+'&key='+APIKEY).content)
@@ -44,6 +45,7 @@ import isodate
 #    return v
 #
 #length=getLengths()
+
 
 def generateVideoDict(fileName):
     filename=json.load(open(fileName))

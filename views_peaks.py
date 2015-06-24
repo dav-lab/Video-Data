@@ -61,7 +61,11 @@ def peakdet(v, delta, x = None):
     return array(maxtab), array(mintab)
 
 
+<<<<<<< HEAD
+APIKEY= 'AIzaSyCRau8nX4c2rubB_ckdUyODhwakNkjUGGI' #'APIKEY'
+=======
 APIKEY= #'APIKEY'
+>>>>>>> origin/master
 json_data = open("viewsAll.json").read() 
 videoInfo = json.loads(json_data) 
 
