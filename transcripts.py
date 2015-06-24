@@ -5,7 +5,11 @@ import requests
 import xmltodict
 import bisect
 
+<<<<<<< HEAD
 APIKEY= 'AIzaSyCRau8nX4c2rubB_ckdUyODhwakNkjUGGI' #'APIKEY'
+=======
+APIKEY= 'APIKEY'
+>>>>>>> origin/master
 VIDEOID='lhERAjJFcek' #'VIDEO_ID'
 info=json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2Cstatistics&id='+VIDEOID+'&key='+APIKEY).content)
 
