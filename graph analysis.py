@@ -7,6 +7,10 @@ videoDict = data
 
 testValuesDict = videoDict['JRmOHsNA2eM']
 
+orderedList = []
+for key in sorted(sorted(testValuesDict.keys()), key=len):
+    orderedList.append((key, testValuesDict[key]))
+
 def extremeViews(dictionary):
     '''Returns the maximum watch with the relevant time stamps, adn the minimum watch with the relevant time stamps'''
     globalMaxWatch = max(testValuesDict.values())
@@ -23,44 +27,26 @@ def extremeViews(dictionary):
 #print extremeViews(testValuesDict)
 
 def gradients(dictionary):
+    # This works second by second. Code might be more effective if we had larger bins. Look into normalizing.
     '''Returns the minimum difference with the relevant time stamps, and the maximum difference with the relevant time stamps'''
     maxDifference = 0
     minDifference = 0
     difference = 0
-
-    # Using values    
-    for value in testValuesDict.values():
-        if (testValuesDict.values()).index(value) != 0:
-            difference = value - testValuesDict.values()[((testValuesDict.values()).index(value))-1]
-            print difference
-            #print ((testValuesDict.values()).index(value), testValuesDict.values()[((testValuesDict.values()).index(value))-1])
+    
+    for tupl in orderedList:
+        if orderedList.index(tupl) != 0:
+            difference = tupl[1] - orderedList[orderedList.index(tupl) - 1][1]
         if difference > maxDifference:
             maxDifference = difference
-            maxValueTime = next(k for k, v in testValuesDict.iteritems() if v == value)
-            maxValueTimePrev = next(k for k, v in testValuesDict.iteritems() if v == testValuesDict.values()[((testValuesDict.values()).index(value))-1])
-            #print (testValuesDict.values()).index(value)
+            maxValueTime = tupl[0]
+            maxValueTimePrev = orderedList[orderedList.index(tupl) - 1][0]
         if difference < minDifference:
             minDifference = difference
-            minValueTime = next(k for k, v in testValuesDict.iteritems() if v == value)
-            minValueTimePrev = next(k for k, v in testValuesDict.iteritems() if v == testValuesDict.values()[((testValuesDict.values()).index(value))-1])
-            
-    # Using keys
-    for key in testValuesDict.keys():
-        #print key
-        if testValuesDict.keys().index(key) != 0:
-            # Difference in views
-            difference = testValuesDict[key] - testValuesDict[testValuesDict.keys()[testValuesDict.keys().index(key) - 1]]
-            print difference
-        if difference > maxDifference:
-            maxDifference = difference
-            maxValueTime = int(key)
-            maxValueTimePrev = int(key) - 1
-        if difference < minDifference:
-            minDifference = difference
-            minValueTime = int(key)
-            minValueTimePrev = int(key) - 1
-            
+            minValueTime = tupl[0]
+            minValueTimePrev = orderedList[orderedList.index(tupl) - 1][0]
+        else: pass
+    
     gradDict = {maxDifference: (maxValueTimePrev, maxValueTime), minDifference: (minValueTimePrev, minValueTime)}
     return gradDict
     
-print gradients(testValuesDict)    
+#print gradients(testValuesDict)    
