@@ -7,43 +7,45 @@ import bisect
 import os
 import isodate
 
-APIKEY='KEY'
-VIDEOID='ID'
-info=json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2Cstatistics&id='+VIDEOID+'&key='+APIKEY).content)
-vidLength=info['items'][0]['contentDetails']['duration']
 
-if info['items'][0]['contentDetails']['caption']=='true':
-    subs=requests.get('http://video.google.com/timedtext?lang=en&v='+VIDEOID).content
-    a=xmltodict.parse(subs)
-    listOfSubs=a['transcript']['text']
+#APIKEY='KEY'
+#VIDEOID='ID'
+#info=json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2Cstatistics&id='+VIDEOID+'&key='+APIKEY).content)
+#vidLength=info['items'][0]['contentDetails']['duration']
+#
+#if info['items'][0]['contentDetails']['caption']=='true':
+#    subs=requests.get('http://video.google.com/timedtext?lang=en&v='+VIDEOID).content
+#    a=xmltodict.parse(subs)
+#    listOfSubs=a['transcript']['text']
+#
+#def getSub(time,subList):
+#    startTimes=[]
+#    text=[]
+#    for i in subList:
+#        startTimes.append(float(i['@start']))
+#        try:
+#            text.append(i['#text'])
+#        except KeyError:
+#            text.append('No sub')
+#    breakpoints=startTimes[1:]
+#    i=bisect.bisect(breakpoints,time)
+#    return text[i]
+#
+#code=json.load(open('code.json'))
+#
+#def getLengths():
+#    v={}
+#    for i in code:
+#        information=json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2Cstatistics&id='+i+'&key='+APIKEY).content)
+#        if len(information['items'])!=0:
+#            length=information['items'][0]['contentDetails']['duration']
+#    	    parsedT=isodate.parse_duration(length)
+#            secs=parsedT.total_seconds()
+#            v[i]=secs
+#    return v
+#
+#length=getLengths()
 
-def getSub(time,subList):
-    startTimes=[]
-    text=[]
-    for i in subList:
-        startTimes.append(float(i['@start']))
-        try:
-            text.append(i['#text'])
-        except KeyError:
-            text.append('No sub')
-    breakpoints=startTimes[1:]
-    i=bisect.bisect(breakpoints,time)
-    return text[i]
-
-code=json.load(open('code.json'))
-
-def getLengths():
-    v={}
-    for i in code:
-        information=json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2Cstatistics&id='+i+'&key='+APIKEY).content)
-        if len(information['items'])!=0:
-            length=information['items'][0]['contentDetails']['duration']
-    	    parsedT=isodate.parse_duration(length)
-            secs=parsedT.total_seconds()
-            v[i]=secs
-    return v
-
-length=getLengths()
 
 def generateVideoDict(fileName):
     filename=json.load(open(fileName))

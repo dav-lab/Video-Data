@@ -31,7 +31,11 @@ def graphViews(videoID):
         y.append(viewsDict[str(k)]) # append the corresponding video views
         
     # create a new plot with a title and axis labels
+<<<<<<< HEAD
+    p = figure(title="Peaks in Video Views", x_axis_label='time (sec)', y_axis_label='views', plot_width=300,plot_height=300)
+=======
     p = figure(title="Peaks in Video Views", x_axis_label='time (sec)', y_axis_label='views')
+>>>>>>> origin/master
     
     # add a line and set line thickness
     p.line(x, y, legend=videoID, line_width=2)
@@ -42,4 +46,9 @@ def graphViews(videoID):
     script, div = components(p)
     return script, div
 
+<<<<<<< HEAD
 makeScripts()
+#graphViews('lhERAjJFcek')
+=======
+makeScripts()
+>>>>>>> origin/master

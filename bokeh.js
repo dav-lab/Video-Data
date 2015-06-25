@@ -21,3 +21,15 @@ function print(){
 		}
 	}
 }
+
+function ids() {
+	var inputList=document.querySelectorAll("input");
+	var scriptList=$("script");
+	for (i = 0; i < inputList.length; i++){
+			var s=scriptList[i+2].innerHTML;
+			var id=s.substring(s.indexOf('legends')+13,s.indexOf('legends')+24);
+			var p=$("<p></p>");
+			p.text(id);
+			p.insertAfter($("#"+i));
+		}
+	}
