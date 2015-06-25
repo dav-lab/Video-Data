@@ -6,6 +6,7 @@ import xmltodict
 import bisect
 import os
 import isodate
+import math
 
 
 #APIKEY='KEY'
@@ -101,7 +102,8 @@ def parseTimes(listTuples):
             else:
                 diff=listTuples[i+1][1]-listTuples[i][1]
                 end=start+diff.total_seconds()
-            intervals.append([start,end])
+            if math.isnan(start)==False and math.isnan(end)==False:
+                intervals.append([start,end])
             i+=1
         else:
             i+=1
