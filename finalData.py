@@ -6,6 +6,7 @@ import xmltodict
 import bisect
 import os
 import isodate
+import numpy
 from math import floor, ceil
 from collections import Counter
 
@@ -90,12 +91,15 @@ length=json.load(open('Video-Data/length.json'))
 def parseAllVid(videoDict):
     all={}
     for key in videoDict:
-        vidLength=length[key]
-        intervals=parseTimes(videoDict[key])
-        for i in intervals:
-            if i[1]>vidLength:
-                i[1]=vidLength
-        all[key]=intervals
+        try:
+            vidLength=length[key]
+            intervals=parseTimes(videoDict[key])
+            for i in intervals:
+                if i[1]>vidLength:
+                    i[1]=vidLength
+            all[key]=intervals
+        except KeyError:
+            all[key]=parseTimes(videoDict[key])
     return all
 
 listOfFileNames=os.listdir('examtakers')
@@ -107,6 +111,22 @@ def allUsers(listOfFiles):
         with open('newData/'+i, 'w') as outfile:
             json.dump(combinedD, outfile)
             
+
+def totalTime(dirname):
+    timeDict={}
+    listFiles=os.listdir(dirname)
+    for i in listFiles:
+        oneFile=json.load(open(dirname+'/'+i))
+        for key in oneFile:
+            #in minutes
+            total=(numpy.sum(numpy.diff(oneFile[key])))/60
+            if i in timeDict:
+                timeDict[i]+=total
+            else:
+                timeDict[i]=total
+    with open('totalTime.json', 'w') as outfile:
+        json.dump(timeDict, outfile)
+
 def countViews(filename):
     data = json.load(open(filename))            
     peaksDct = {}
@@ -114,13 +134,21 @@ def countViews(filename):
         values = data[key]
         counterSeg = Counter()
         for seg in values:
-            print seg
-            seg = [int(floor(seg[0])), int(ceil(seg[1]))]
+            seg = [int(floor(seg[0])), int(ceil(seg[1]))] # rounds the intervals
             end = seg[1]
             for el in range(seg[0], end+1):
                 counterSeg[el] += 1
         peaksDct[key] = counterSeg
-    return peaksDct
-
-# After running countViews(), loop through the dictionary that it creates
-# and only count the seconds with more than 1 view (aka the re-swatches)
+    rewatch={(k,v) for (k,v) in peaksDct.items() for (key,value) in v.items() if value>1}
+    return rewatch
+    
+    
+#def filterRewatches(dirname):
+#    rewatchDict={}
+#    listFiles=os.listdir(dirname)
+#    for i in listFiles:
+#        numViews=countViews(i)
+#        for videoID in numViews:
+#            for key in numViews[videoID]:
+#                if numViews[videoID][key] > 1:
+#                    rewatchDict[videoID]={key:numViews[videoID][key]}
