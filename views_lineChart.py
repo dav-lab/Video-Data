@@ -5,12 +5,12 @@ from bokeh.plotting import figure, output_file, show
 from bokeh.embed import components # generates individual component
 import json
 
-json_data = open("viewsAll.json").read() 
+json_data = open("rewatchPeaks.json").read() 
 videoInfo = json.loads(json_data)
 
 def makeScripts():
     '''Creates a text file that contains all the scripts for the videos'''
-    scripts = open('graphScripts.txt', 'w')
+    scripts = open('rewatchGraphScripts.txt', 'w')
     for video in videoInfo:
         script, div = graphViews(video)
         scripts.write(script + '\n')
@@ -31,12 +31,9 @@ def graphViews(videoID):
         y.append(viewsDict[str(k)]) # append the corresponding video views
         
     # create a new plot with a title and axis labels
-<<<<<<< HEAD
+
     p = figure(title="Peaks in Video Views", x_axis_label='time (sec)', y_axis_label='views', plot_width=300,plot_height=300)
-=======
-    p = figure(title="Peaks in Video Views", x_axis_label='time (sec)', y_axis_label='views')
->>>>>>> origin/master
-    
+
     # add a line and set line thickness
     p.line(x, y, legend=videoID, line_width=2)
     
@@ -46,9 +43,5 @@ def graphViews(videoID):
     script, div = components(p)
     return script, div
 
-<<<<<<< HEAD
 makeScripts()
 #graphViews('lhERAjJFcek')
-=======
-makeScripts()
->>>>>>> origin/master

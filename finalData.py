@@ -183,3 +183,21 @@ def addRewatches(dirname):
         rewatches[i]=secs
     with open('totalRewatchTime.json', 'w') as outfile:
         json.dump(rewatches, outfile)
+
+def rewatchPeaks(dirname):
+    '''Takes in a folder with view counts for every student and creates a json file 
+    of a dictionary where the keys are video IDs and values are total
+    rewatch views at each second.'''
+    rewatches={}
+    listFiles=os.listdir(dirname)
+    for i in listFiles:
+        oneFile=json.load(open(dirname+'/'+i))
+        for videoID in oneFile:
+            new=Counter({k:v-1 for k,v in oneFile[videoID].items()}) # subtract 1 to exclude the 1st time
+            if videoID not in rewatches:
+                rewatches[videoID]=new
+            else:
+                rewatches[videoID]+=new
+    with open('rewatchPeaks.json', 'w') as outfile:
+            json.dump(rewatches, outfile)
+                
