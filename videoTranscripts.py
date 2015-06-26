@@ -10,6 +10,33 @@ import isodate
 from xml.parsers.expat import ExpatError
 import pprint #for pretty printing
 
+
+
+
+
+
+def wordFreqCounter(newTranscript):   
+    joiner = ''.join(newTranscript).replace("&#39;","'").replace("\n"," ").replace("."," ").replace("?"," ").replace(","," ").replace("--"," ").lower()
+    mylist = []
+    mylist.append(joiner)
+    
+    newDict={}
+    for i in mylist:
+        words=i.split()
+        for word in words:
+            if word in newDict:
+                newDict[word]+=1
+            else:
+                newDict[word]=1
+                                      
+    return newDict
+    #print collections.OrderedDict(sorted(newDict.items()))  
+
+
+
+
+
+
 APIKEY='AIzaSyDKoeFuf8lF9bO3cQasg5MSf6SDjgBjDgc'
 videoReader = open('videos.json').read()
 videoLoader = json.loads(videoReader)
@@ -19,7 +46,7 @@ for i in videoLoader: #appends videoIDs to the list videoIDs
     videoIDs.append(i)
 
 transcriptDict = {} #Dictionary for videoIDs and transcript of video
-
+transcriptFreqDict = {}
 for VIDEOID in videoIDs: #Goes through individual videoIDs in the list
     info=json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2Cstatistics&id='+VIDEOID+'&key='+APIKEY).content)
     try:
@@ -35,13 +62,20 @@ for VIDEOID in videoIDs: #Goes through individual videoIDs in the list
                 transcriptList.append(transcript)
                 i += 1          
             transcriptDict[VIDEOID] = transcriptList
-   
+            transcriptFreqDict[VIDEOID] = wordFreqCounter(transcriptList)
     except (IndexError, ExpatError), e:
         #print 'indexError on ',VIDEOID
         transcriptDict[VIDEOID] = ['NTA']
         
 def printDict():
     pprint.pprint(transcriptDict) #pretty prints the transcriptDict   
+
+
+
+
+
+
+
 
 ##Code for looking at transcript of one video
 #newTranscript = []
@@ -69,22 +103,16 @@ def printDict():
 #
 #wordFreqCounter(newTranscript)
 
-def wordFreqCounter(newTranscript):   
-    joiner = ''.join(newTranscript).replace("&#39;","'").replace("\n"," ").replace("."," ").replace("?"," ").replace(","," ").replace("--"," ").lower()
-    mylist = []
-    mylist.append(joiner)
-    
-    newDict={}
-    for i in mylist:
-        words=i.split()
-        for word in words:
-            if word in newDict:
-                newDict[word]+=1
-            else:
-                newDict[word]=1
-                                      
-    #print newDict
-    print collections.OrderedDict(sorted(newDict.items()))  
+
+
+
+
+
+
+
+
+
+
 
 #Code for getting the time in video
 #def getSub(time,subList):
