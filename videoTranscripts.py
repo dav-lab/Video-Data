@@ -10,59 +10,62 @@ import isodate
 from xml.parsers.expat import ExpatError
 import pprint #for pretty printing
 
-def wordFreqCounter(newTranscript):   
+
+def wordFreqCounter(newTranscript): 
+    '''Takes in a transcript and creates a dictionary with the keys as the words and the values as the frequency'''
+    #cleans up the transcript  
     joiner = ' '.join(newTranscript).replace("&#39;","'").replace("\n"," ").replace("."," ").replace("?"," ").replace(","," ").replace("--"," ").replace(":"," ").replace("&quot;"," ").replace("("," ").replace(")"," ").lower()
+    
     mylist = []
-    mylist.append(joiner)
+    mylist.append(joiner) #appending the full transcript (a string) to a list
     
     commonWords = []
-    commonWordsFile = open('commonWords.txt','r').readlines()
+    commonWordsFile = open('commonWords.txt','r').readlines()#reading the list of common words
     
-    for i in commonWordsFile:
-        i = i.replace("\n","").lower()
-        commonWords.append(i)
+    #for loop to get rid of new line character and lowercase the words
+    for commonword in commonWordsFile:
+        commonword = commonword.replace("\n","").lower()
+        commonWords.append(commonword)
     
     newDict={}
-    for i in mylist:
-        words=i.split()
+    
+    for line in mylist:
+        words=line.split() #splits line into individual words
         for word in words:
             if word not in commonWords:
                 if word in newDict:
-                    newDict[word]+=1
+                    newDict[word]+=1 #incrementing a key value pairing
                 else:
-                    newDict[word]=1
-                #newDict[word].(getWordOccurreneceTime(VIDEOID,word))                                   
-    return newDict
-    #print collections.OrderedDict(sorted(newDict.items()))  
+                    newDict[word]=1 #creating a key value pairing                              
+    return newDict    
     
-    
-    
-    
-def wordFreqCounter(newTranscript,VIDEOID):   
-    joiner = ' '.join(newTranscript).replace("&#39;","'").replace("\n"," ").replace("."," ").replace("?"," ").replace(","," ").replace("--"," ").replace(":"," ").replace("&quot;"," ").replace("("," ").replace(")"," ").lower()
-    mylist = []
-    mylist.append(joiner)
-    
-    commonWords = []
-    commonWordsFile = open('commonWords.txt','r').readlines()
-    
-    for i in commonWordsFile:
-        i = i.replace("\n","").lower()
-        commonWords.append(i)
-    
-    listOfAllWords = []
-    listOfOneWord = []
-    for i in mylist:
-        words=i.split()
-        for word in words:
-            if word not in commonWords:
-            #    if word in newDict:
-            #        newDict[word]+=1
-            #    else:
-            #        newDict[word]=1
-            #    #newDict[word].(getWordOccurreneceTime(VIDEOID,word))                                   
-    return listOfAllWords
-    #print collections.OrderedDict(sorted(newDict.items())) 
+#Trying to rewrite wordFreqCounter. Currently not working
+#
+#def wordFreqCounter(newTranscript,VIDEOID):   
+#    joiner = ' '.join(newTranscript).replace("&#39;","'").replace("\n"," ").replace("."," ").replace("?"," ").replace(","," ").replace("--"," ").replace(":"," ").replace("&quot;"," ").replace("("," ").replace(")"," ").lower()
+#    mylist = []
+#    mylist.append(joiner)
+#    
+#    commonWords = []
+#    commonWordsFile = open('commonWords.txt','r').readlines()
+#    
+#    for i in commonWordsFile:
+#        i = i.replace("\n","").lower()
+#        commonWords.append(i)
+#    
+#    listOfAllWords = []
+#    listOfOneWord = []
+#    for i in mylist:
+#        words=i.split()
+#        for word in words:
+#            if word not in commonWords:
+#            #    if word in newDict:
+#            #        newDict[word]+=1
+#            #    else:
+#            #        newDict[word]=1
+#            #    #newDict[word].(getWordOccurreneceTime(VIDEOID,word))                                   
+#    return listOfAllWords
+#    #print collections.OrderedDict(sorted(newDict.items())) 
     
     
     
@@ -77,8 +80,8 @@ for i in videoLoader: #appends videoIDs to the list videoIDs
     videoIDs.append(i)
 
 transcriptDict = {} #Dictionary for videoIDs and transcript of video
-transcriptFreqDict = {}
-transcriptTimesDict = {}
+transcriptFreqDict = {} #Dictionary within a dictionary. Video id is first key. Second key is words in transcript, value is number of times it occurs
+transcriptTimesDict = {} #tuple within a dictionary. First key is Video ids and the value is a list of tuples with the first index as the time and the second index is a lin of the transcript 
 
 for VIDEOID in videoIDs: #Goes through individual videoIDs in the list
     info=json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2Cstatistics&id='+VIDEOID+'&key='+APIKEY).content)
@@ -86,35 +89,33 @@ for VIDEOID in videoIDs: #Goes through individual videoIDs in the list
         if info['items'][0]['contentDetails']['caption']=='true': #checks if the video has the caption(transcript) info
             subs=requests.get('http://video.google.com/timedtext?lang=en&v='+VIDEOID).content
             a=xmltodict.parse(subs)
-            #print 'a is',a
-            #print subs
             listOfSubs=a['transcript']['text']   
-            transcriptList = []
-            transcriptTimesList=[]
+            transcriptList = []# list for transcript
+            transcriptTimesList=[]# list for the tuple (start time, transcript line)
             i = 1
             while i <  len(listOfSubs)-1: #while loop traverses listOfSubs(not including first and last element because they don't have text)
                 transcript = listOfSubs[i].items()[2][1] #listOfSubs[i].items()[2][1] accesses ordered dict
-                #newTranscript = transcript.replace("&#39;","'")
                 transcriptList.append(transcript)
-                value = (listOfSubs[i].items()[0][1],listOfSubs[i].items()[2][1].replace("&#39;","'").replace("\n"," ").replace("."," ").replace("?"," ").replace(","," ").replace("--"," ").replace(":"," ").replace("&quot;"," ").replace("("," ").replace("&quot;"," ").lower()) 
+                value = (listOfSubs[i].items()[0][1],listOfSubs[i].items()[2][1].replace("&#39;","'").replace("\n"," ").replace("."," ").replace("?"," ").replace(","," ").replace("--"," ").replace(":"," ").replace("("," ").replace("&quot;"," ").lower()) 
                 transcriptTimesList.append(value)
                 i += 1         
             transcriptDict[VIDEOID] = transcriptList
-            transcriptFreqDict[VIDEOID] = wordFreqCounter(transcriptList,VIDEOID)
-            #transcriptTimesDict[VIDEOID] = value
+            transcriptFreqDict[VIDEOID] = wordFreqCounter(transcriptList)
             transcriptTimesDict[VIDEOID] = transcriptTimesList
     except (IndexError, ExpatError), e:
-        #print 'indexError on ',VIDEOID
         transcriptDict[VIDEOID] = ['NTA']
         
 def printDict():
     pprint.pprint(transcriptDict) #pretty prints the transcriptDict    
-    
+ 
+#This doesn't really work now (it did at some point)
 def getWordOccurreneceTime(ids,word):
+    '''This was trying to find the first time a word occurred within the transcript and it 
+    should return the time associated with that line of transcript'''
     #uniqueIds = transcriptFreqDict.keys()
     #for ids in uniqueIds:     
         #for j in range(len(transcriptFreqDict[ids])): #loops through words
-            for i in range(len(transcriptTimesDict[ids])): #loops through lines
+    for i in range(len(transcriptTimesDict[ids])): #loops through lines
                 print 'looking at this line: ',transcriptTimesDict[ids][i][1]
                 if word in transcriptTimesDict[ids][i][1]: # if word in transcript line 
                     #transcriptFreqDict[ids][j][0] is the word
