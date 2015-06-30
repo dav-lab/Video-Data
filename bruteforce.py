@@ -5,6 +5,28 @@ import json
 from collections import OrderedDict
 
 
+def getPeaksForOneVideo(videoID):
+    '''Returns a list of peak points (tuples)
+    :param videoID: videoID string'''
+    peaks=[] 
+    json_data = open("rewatchPeaks.json").read() 
+    videoInfo = json.loads(json_data)
+    viewsDict = videoInfo[videoID]
+    d = OrderedDict(sorted(viewsDict.items(), key=lambda t: int(t[0]))) 
+    x = d.keys()
+    y = d.values()
+    if len(y) > 1:
+        for pt in range(len(y)):
+            if pt==0: # is first point a peak?
+                if y[pt+1] < y[pt]:
+                    peaks.append((x[pt],y[pt]))
+            elif pt==len(y)-1: # is last point a peak?
+                if y[pt-1] < y[pt]:
+                    peaks.append((x[pt],y[pt])) 
+            elif y[pt-1] < y[pt] and y[pt+1] < y[pt]:
+                peaks.append((x[pt],y[pt]))
+    return peaks
+
 def getPeaks(filename):
     '''Returns a dictionary where keys are video IDs and values are a list of peak points (tuples)
     :param filename: file of a dictionary of dictionaries where keys are video IDs and values are 
@@ -28,5 +50,7 @@ def getPeaks(filename):
                     peaksList.append((x[pt],y[pt]))
             peaks[video]=peaksList
     return peaks
-                
-print getPeaks('rewatchPeaks.json')
+
+                    
+#getPeaks('rewatchPeaks.json')
+#getPeaksForOneVideo('uKE5tu2LcwQ')
