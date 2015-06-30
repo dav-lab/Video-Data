@@ -10,12 +10,7 @@ import isodate
 from xml.parsers.expat import ExpatError
 import pprint #for pretty printing
 
-
-
-
-
-
-def wordFreqCounter(newTranscript,VIDEOID):   
+def wordFreqCounter(newTranscript):   
     joiner = ' '.join(newTranscript).replace("&#39;","'").replace("\n"," ").replace("."," ").replace("?"," ").replace(","," ").replace("--"," ").replace(":"," ").replace("&quot;"," ").replace("("," ").replace(")"," ").lower()
     mylist = []
     mylist.append(joiner)
@@ -36,15 +31,42 @@ def wordFreqCounter(newTranscript,VIDEOID):
                     newDict[word]+=1
                 else:
                     newDict[word]=1
-                newDict[word].(getWordOccurreneceTime(VIDEOID,word))
-                                      
+                #newDict[word].(getWordOccurreneceTime(VIDEOID,word))                                   
     return newDict
     #print collections.OrderedDict(sorted(newDict.items()))  
-
-
-
-
-
+    
+    
+    
+    
+def wordFreqCounter(newTranscript,VIDEOID):   
+    joiner = ' '.join(newTranscript).replace("&#39;","'").replace("\n"," ").replace("."," ").replace("?"," ").replace(","," ").replace("--"," ").replace(":"," ").replace("&quot;"," ").replace("("," ").replace(")"," ").lower()
+    mylist = []
+    mylist.append(joiner)
+    
+    commonWords = []
+    commonWordsFile = open('commonWords.txt','r').readlines()
+    
+    for i in commonWordsFile:
+        i = i.replace("\n","").lower()
+        commonWords.append(i)
+    
+    listOfAllWords = []
+    listOfOneWord = []
+    for i in mylist:
+        words=i.split()
+        for word in words:
+            if word not in commonWords:
+            #    if word in newDict:
+            #        newDict[word]+=1
+            #    else:
+            #        newDict[word]=1
+            #    #newDict[word].(getWordOccurreneceTime(VIDEOID,word))                                   
+    return listOfAllWords
+    #print collections.OrderedDict(sorted(newDict.items())) 
+    
+    
+    
+    
 
 APIKEY='AIzaSyDKoeFuf8lF9bO3cQasg5MSf6SDjgBjDgc'
 videoReader = open('videos.json').read()
@@ -78,7 +100,7 @@ for VIDEOID in videoIDs: #Goes through individual videoIDs in the list
                 transcriptTimesList.append(value)
                 i += 1         
             transcriptDict[VIDEOID] = transcriptList
-            transcriptFreqDict[VIDEOID] = wordFreqCounter(transcriptList,VIDEOID).items()
+            transcriptFreqDict[VIDEOID] = wordFreqCounter(transcriptList,VIDEOID)
             #transcriptTimesDict[VIDEOID] = value
             transcriptTimesDict[VIDEOID] = transcriptTimesList
     except (IndexError, ExpatError), e:
@@ -86,8 +108,7 @@ for VIDEOID in videoIDs: #Goes through individual videoIDs in the list
         transcriptDict[VIDEOID] = ['NTA']
         
 def printDict():
-    pprint.pprint(transcriptDict) #pretty prints the transcriptDict 
-    
+    pprint.pprint(transcriptDict) #pretty prints the transcriptDict    
     
 def getWordOccurreneceTime(ids,word):
     #uniqueIds = transcriptFreqDict.keys()
@@ -103,9 +124,6 @@ def getWordOccurreneceTime(ids,word):
                 #else:
                 #    #print transcriptFreqDict[ids][j][0],'is not in line',i
                 #    pass
-
- 
-
 
 ##Code for looking at transcript of one video
 #newTranscript = []
@@ -132,7 +150,6 @@ def getWordOccurreneceTime(ids,word):
 #    print 'indexError on ',VIDEOID
 #
 #wordFreqCounter(newTranscript)
-
 
 #def getSub(time,subList):
 #    startTimes=[]
