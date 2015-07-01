@@ -1,6 +1,8 @@
 # Whitney and Diana
 #Last Updated: 7/1/2015
 
+import re
+import HTMLParser
 import json
 import datetime
 import collections
@@ -14,7 +16,6 @@ import os
 import isodate
 from xml.parsers.expat import ExpatError
 import pprint #for pretty printing
-
 
 def wordFreqCounter(newTranscript): 
     '''Takes in a transcript and creates a dictionary with the keys as the words and the values as the frequency'''
@@ -79,9 +80,16 @@ for VIDEOID in videoIDs: #Goes through individual videoIDs in the list
             transcriptTimesList=[]# list for the tuple (start time, transcript line)
             i = 1
             while i <  len(listOfSubs)-1: #while loop traverses listOfSubs(not including first and last element because they don't have text)
-                transcript = listOfSubs[i].items()[2][1] #listOfSubs[i].items()[2][1] accesses ordered dict
+                #transcript = listOfSubs[i].items()[2][1] #listOfSubs[i].items()[2][1] accesses ordered dict
+                #transcriptList.append(transcript)
+                #value = (listOfSubs[i].items()[0][1],listOfSubs[i].items()[2][1].replace("&#39;","'").replace("\n"," ").replace("."," ").replace("?"," ").replace(","," ").replace("--"," ").replace(":"," ").replace("("," ").replace("&quot;"," ").lower()) 
+                #transcriptTimesList.append(value)
+                html_parser = HTMLParser.HTMLParser()            
+                transcript = html_parser.unescape(listOfSubs[i].items()[2][1])
+                transcript = re.compile("[^\w']|_").sub(" ",transcript).strip()
+                transcript = re.compile("[0-9]+").sub(" ",transcript).strip()
                 transcriptList.append(transcript)
-                value = (listOfSubs[i].items()[0][1],listOfSubs[i].items()[2][1].replace("&#39;","'").replace("\n"," ").replace("."," ").replace("?"," ").replace(","," ").replace("--"," ").replace(":"," ").replace("("," ").replace("&quot;"," ").lower()) 
+                value = (listOfSubs[i].items()[0][1],transcript)
                 transcriptTimesList.append(value)
                 i += 1 
             transcriptSubDict[VIDEOID] =  subs+"\n"       
@@ -92,9 +100,11 @@ for VIDEOID in videoIDs: #Goes through individual videoIDs in the list
     #    transcriptDict[VIDEOID] = ['NTA']
         
 #json.dump(transcriptSubDict,open('transcriptsXML.json','w'))
-#json.dump(transcriptFreqDict,open('transcriptsWordFrequency.json','w'))
+json.dump(transcriptFreqDict,open('transcriptsWordFrequency.json','w'))
 #json.dump(transcriptTimesDict,open('transcriptsTime.json','w'))
 #json.dump(transcriptDict,open('transcriptsParagraph.json','w'))
+
+#json.dump(transcriptFreqDict,open('transcriptsOrderedWords.json','w'))
         
 def printDict():
     pprint.pprint(transcriptDict) #pretty prints the transcriptDict        
