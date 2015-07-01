@@ -41,7 +41,7 @@ def wordFreqCounter(newTranscript):
                     newDict[word]+=1 #incrementing a key value pairing
                 else:
                     newDict[word]=1 #creating a key value pairing
-    #OrderedDict(sorted(newDict.items()))
+    #OrderedDict(sorted(newDict.items())) makes the newDict alphabetized
     d = Counter(newDict)                                              
     return d.most_common()   
     
@@ -89,7 +89,7 @@ for VIDEOID in videoIDs: #Goes through individual videoIDs in the list
                 transcript = re.compile("[^\w']|_").sub(" ",transcript).strip()
                 transcript = re.compile("[0-9]+").sub(" ",transcript).strip()
                 transcriptList.append(transcript)
-                value = (listOfSubs[i].items()[0][1],transcript)
+                value = (listOfSubs[i].items()[0][1],listOfSubs[i].items()[1][1],transcript)
                 transcriptTimesList.append(value)
                 i += 1 
             transcriptSubDict[VIDEOID] =  subs+"\n"       
@@ -100,10 +100,9 @@ for VIDEOID in videoIDs: #Goes through individual videoIDs in the list
     #    transcriptDict[VIDEOID] = ['NTA']
         
 #json.dump(transcriptSubDict,open('transcriptsXML.json','w'))
-json.dump(transcriptFreqDict,open('transcriptsWordFrequency.json','w'))
-#json.dump(transcriptTimesDict,open('transcriptsTime.json','w'))
+#json.dump(transcriptFreqDict,open('transcriptsWordFrequency.json','w'))
+json.dump(transcriptTimesDict,open('transcriptsTime.json','w'))
 #json.dump(transcriptDict,open('transcriptsParagraph.json','w'))
-
 #json.dump(transcriptFreqDict,open('transcriptsOrderedWords.json','w'))
         
 def printDict():
