@@ -19,17 +19,15 @@ def wordFreqCounter(newTranscript):
     
     mylist = []
     mylist.append(joiner) #appending the full transcript (a string) to a list
-    
+       
     commonWords = []
     commonWordsFile = open('commonWords.txt','r').readlines()#reading the list of common words
     
     #for loop to get rid of new line character and lowercase the words
     for commonword in commonWordsFile:
         commonword = commonword.replace("\n","").lower()
-        commonWords.append(commonword)
-    
-    newDict={}
-    
+        commonWords.append(commonword)    
+    newDict={}  
     for line in mylist:
         words=line.split() #splits line into individual words
         for word in words:
@@ -41,38 +39,6 @@ def wordFreqCounter(newTranscript):
                                                   
     return OrderedDict(newDict)    
     
-#Trying to rewrite wordFreqCounter. Currently not working
-#
-#def wordFreqCounter(newTranscript,VIDEOID):   
-#    joiner = ' '.join(newTranscript).replace("&#39;","'").replace("\n"," ").replace("."," ").replace("?"," ").replace(","," ").replace("--"," ").replace(":"," ").replace("&quot;"," ").replace("("," ").replace(")"," ").lower()
-#    mylist = []
-#    mylist.append(joiner)
-#    
-#    commonWords = []
-#    commonWordsFile = open('commonWords.txt','r').readlines()
-#    
-#    for i in commonWordsFile:
-#        i = i.replace("\n","").lower()
-#        commonWords.append(i)
-#    
-#    listOfAllWords = []
-#    listOfOneWord = []
-#    for i in mylist:
-#        words=i.split()
-#        for word in words:
-#            if word not in commonWords:
-#            #    if word in newDict:
-#            #        newDict[word]+=1
-#            #    else:
-#            #        newDict[word]=1
-#            #    #newDict[word].(getWordOccurreneceTime(VIDEOID,word))                                   
-#    return listOfAllWords
-#    #print collections.OrderedDict(sorted(newDict.items())) 
-    
-    
-    
-    
-
 APIKEY='AIzaSyDKoeFuf8lF9bO3cQasg5MSf6SDjgBjDgc'
 videoReader = open('videos.json').read()
 videoLoader = json.loads(videoReader)
@@ -112,69 +78,28 @@ for VIDEOID in videoIDs: #Goes through individual videoIDs in the list
         transcriptDict[VIDEOID] = ['NTA']
         
 def printDict():
-    pprint.pprint(transcriptDict) #pretty prints the transcriptDict    
- 
-#This doesn't really work now (it did at some point)
-def getWordOccurreneceTime(ids,word):
-    '''This was trying to find the first time a word occurred within the transcript and it 
-    should return the time associated with that line of transcript'''
-    #uniqueIds = transcriptFreqDict.keys()
-    #for ids in uniqueIds:     
-        #for j in range(len(transcriptFreqDict[ids])): #loops through words
-    for i in range(len(transcriptTimesDict[ids])): #loops through lines
-                print 'looking at this line: ',transcriptTimesDict[ids][i][1]
-                if word in transcriptTimesDict[ids][i][1]: # if word in transcript line 
-                    #transcriptFreqDict[ids][j][0] is the word
-                    #print 'the word:',transcriptFreqDict[ids][j][0],'occurence at line:',i,'at',transcriptTimesDict[ids][i][0]
-                    #print 'the line is',transcriptTimesDict[ids][i][1],'\n'
-                    return transcriptTimesDict[ids][i][0]
-                #else:
-                #    #print transcriptFreqDict[ids][j][0],'is not in line',i
-                #    pass
+    pprint.pprint(transcriptDict) #pretty prints the transcriptDict        
 
-#json.dump(transcriptSubDict,open('transcriptsXML.json','w'))
-json.dump(transcriptFreqDict,open('transcriptsWordFrequency.json','w'))
-#json.dump(transcriptTimesDict,open('transcriptsTime.json','w'))
-#json.dump(transcriptDict,open('transcriptsParagraph.json','w'))
-
-##Code for looking at transcript of one video
-#newTranscript = []
-#VIDEOID = 'zhKN60gDjk8'
-#info=json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2Cstatistics&id='+VIDEOID+'&key='+APIKEY).content)
-##vidLength=info['items'][0]['contentDetails']['duration']
-#try:    
-#    if info['items'][0]['contentDetails']['caption']=='true':
-#        subs=requests.get('http://video.google.com/timedtext?lang=en&v='+VIDEOID).content
-#        a=xmltodict.parse(subs)
-#        listOfSubs=a['transcript']['text']
-#        
-#        #while loop traverses listOfSubs(not including first and last element because they don't have text)
-#        #listOfSubs[i].items()[2][1] accesses ordered dict (like a tuple)
-#        i = 1
-#        while i <  len(listOfSubs)-1:
-#            transcript = listOfSubs[i].items()[2][1]
-#            newTranscript.append(transcript)
-#            #print newTranscript
-#            i += 1
-#        print ''
-#        
-#except (IndexError, ExpatError), e:
-#    print 'indexError on ',VIDEOID
-#
-#wordFreqCounter(newTranscript)
-
-#def getSub(time,subList):
-#    startTimes=[]
-#    text=[]
-#    for i in subList:
-#        startTimes.append(float(i['@start']))
-#        try:
-#            text.append(i['#text'])
-#        except KeyError:
-#            text.append('No sub')
-#    breakpoints=startTimes[1:]
-#    i=bisect.bisect(breakpoints,time)
-#    return text[i]
-
-#json_data = open('videoTitles.json').read()
-#info=json.loads(json_data)
+def oneTranscript(): #Code for looking at transcript of one video
+    newTranscript = []
+    VIDEOID = 'zhKN60gDjk8'
+    info=json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2Cstatistics&id='+VIDEOID+'&key='+APIKEY).content)
+    #vidLength=info['items'][0]['contentDetails']['duration']
+    try:    
+        if info['items'][0]['contentDetails']['caption']=='true':
+            subs=requests.get('http://video.google.com/timedtext?lang=en&v='+VIDEOID).content
+            a=xmltodict.parse(subs)
+            listOfSubs=a['transcript']['text']
+            
+            #while loop traverses listOfSubs(not including first and last element because they don't have text)
+            #listOfSubs[i].items()[2][1] accesses ordered dict (like a tuple)
+            i = 1
+            while i <  len(listOfSubs)-1:
+                transcript = listOfSubs[i].items()[2][1]
+                newTranscript.append(transcript)
+                #print newTranscript
+                i += 1
+            print ''           
+    except (IndexError, ExpatError), e:
+        print 'indexError on ',VIDEOID 
+    wordFreqCounter(newTranscript)
