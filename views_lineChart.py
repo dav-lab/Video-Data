@@ -7,12 +7,12 @@ from bokeh.models import HoverTool
 from bruteforce import getPeaksForOneVideo
 import json
 
-json_data = open("rewatchPeaks.json").read() 
+json_data = open("groupPeaks.json").read() 
 videoInfo = json.loads(json_data)
 
 def makeScripts():
     '''Creates a text file that contains all the scripts for the videos'''
-    scripts = open('rewatchPeaksGraphScripts.txt', 'w')
+    scripts = open('groupRewatchPeaksGraphScripts.txt', 'w')
     for video in videoInfo:
         script, div = withPeaks(video)
         scripts.write(script + '\n')
@@ -57,26 +57,28 @@ def withPeaks(videoID):
     toInt = map(int, viewsDict.keys())
     toInt.sort()
     for k in toInt: # populate x and y
-        x.append(k)
-        y.append(viewsDict[str(k)]) # append the corresponding video views
-
+        x.append(int(k))
+        y.append(viewsDict[str(k)]) # append the corresponding video views 
+    
     # a and b contain the peaks to plot on the graph
     a = []
     b = []
     peaksList = getPeaksForOneVideo(videoID) # list of tuples
     for tup in peaksList:
-        a.append(tup[0])
+        a.append(int(tup[0]))
         b.append(tup[1])    
-    
+
     output_file("peaks.html")
 
     hover = HoverTool(
         tooltips = [
-            ("(a,b)", "(@x, @y)"),
+            ("(a,b)", "(@a, @b)"),
         ]
     )
     
-    p = figure(plot_width=400, plot_height=400,tools=[hover])
+    TOOLS = 'resize,hover, save, pan, box_zoom, wheel_zoom'
+    
+    p = figure(plot_width=400, plot_height=400,tools=TOOLS)
     
     # add both a line and circles on the same plot
     p.line(x, y, legend=videoID, line_width=2)
@@ -87,5 +89,5 @@ def withPeaks(videoID):
     return script, div
 
 makeScripts()
-#withPeaks('lhERAjJFcek')
+#withPeaks('qic9_yRWj5U')
 

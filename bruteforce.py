@@ -9,7 +9,7 @@ def getPeaksForOneVideo(videoID):
     '''Returns a list of peak points (tuples)
     :param videoID: videoID string'''
     peaks=[] 
-    json_data = open("rewatchPeaks.json").read() 
+    json_data = open("groupPeaks.json").read() 
     videoInfo = json.loads(json_data)
     viewsDict = videoInfo[videoID]
     d = OrderedDict(sorted(viewsDict.items(), key=lambda t: int(t[0]))) 
@@ -53,4 +53,4 @@ def getPeaks(filename):
 
                     
 #getPeaks('rewatchPeaks.json')
-#getPeaksForOneVideo('uKE5tu2LcwQ')
+print getPeaksForOneVideo('qic9_yRWj5U')
