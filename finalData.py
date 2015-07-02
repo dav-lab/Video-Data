@@ -130,7 +130,8 @@ def allUsers(listOfFiles):
 
 def totalTime(dirname):
     '''Takes in a folder with files about each student. Creates a json file with a dictionary
-    where keys are student IDs and values are total time they spent watching videos in minutes'''
+    where keys are student IDs and values are total time they spent watching videos in minutes.
+    :param dirname: newData is a folder with student files.'''
     timeDict={}
     listFiles=os.listdir(dirname)
     for i in listFiles:
@@ -147,7 +148,8 @@ def totalTime(dirname):
 
 def countViews(filename):
     '''Takes in a dictionary of intervals and returns a dictionary where the keys are
-    current time in video (in seconds) and values are number of rewatches at that time'''
+    current time in video (in seconds) and values are number of rewatches at that time
+    :param dirname: newData is a folder with student files.'''
     data = json.load(open(filename))            
     peaksDct = {}
     for key in data.keys():
@@ -165,8 +167,9 @@ def countViews(filename):
 
        
 def filterRewatches(dirname):
-    '''Takes in a folder with student files and creates a json file of dictionaries where the keys are
-    current time in video (in seconds) and values are number of rewatches at that time'''
+    '''Creates a json file of dictionaries where the keys are current time 
+    in video (in seconds) and values are number of rewatches at that time.
+    :param dirname: newData is a folder with student files.'''
     listFiles=os.listdir(dirname)
     for i in listFiles:
         rewatches=countViews(dirname+'/'+i)
@@ -175,7 +178,8 @@ def filterRewatches(dirname):
             
 def addRewatches(dirname):
     '''Creates a json file of a dictionary where the keys are user IDs and the values
-    are dictionaries with the amount of time rewatched in seconds for each video'''
+    are dictionaries with the amount of time rewatched in seconds for each video.
+    :param dirname: rewatches is a folder with student files which contain rewatch view counts.'''
     rewatches={}
     listFiles=os.listdir(dirname)
     for i in listFiles:
@@ -189,9 +193,9 @@ def addRewatches(dirname):
         json.dump(rewatches, outfile)
 
 def rewatchPeaks(dirname):
-    '''Takes in a folder with view counts for every student and creates a json file 
-    of a dictionary where the keys are video IDs and values are total
-    rewatch views at each second.'''
+    '''Creates a json file of a dictionary where keys are video IDs 
+    and values are total rewatch views at each second.
+    :param dirname: rewatches is a folder with student files which contain rewatch view counts.'''
     rewatches={}
     listFiles=os.listdir(dirname)
     for i in listFiles:
@@ -206,8 +210,8 @@ def rewatchPeaks(dirname):
             json.dump(rewatches, outfile)
             
 def getUniqueViews(dirname):
-    '''Takes in folder (newData) which contains student files.
-    Creates a dictionary where the keys are video IDs and values are unique views.'''
+    '''Creates a dictionary where the keys are video IDs and values are unique views.
+    :param dirname: newData contains student files'''
     d={}
     listFiles=os.listdir(dirname)
     for i in listFiles:
