@@ -202,4 +202,20 @@ def rewatchPeaks(dirname):
                 rewatches[videoID]+=new
     with open('rewatchPeaks.json', 'w') as outfile:
             json.dump(rewatches, outfile)
+            
+def getUniqueViews(dirname):
+    '''Takes in folder (newData) which contains student files.
+    Creates a dictionary where the keys are video IDs and values are unique views.'''
+    d={}
+    listFiles=os.listdir(dirname)
+    for i in listFiles:
+        oneFile=json.load(open(dirname+'/'+i))
+        for video in oneFile:
+            if video not in d:
+                d[video]=1
+            else:
+                d[video]+=1
+    with open('uniqueViews.json', 'w') as outfile:
+        json.dump(d, outfile)
+            
                 
