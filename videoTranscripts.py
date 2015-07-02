@@ -155,6 +155,8 @@ def getSub(time,VIDEOID):
             text.append('No sub')
     breakpoints=startTimes[1:] # list of all the start times of the video
     # bisect returns an insertion point which comes after ane existing entries of time in breakpoints
+    #for t in time:
+        #i=bisect.bisect(breakpoints,t) 
     i=bisect.bisect(breakpoints,time) 
     html_parser = HTMLParser.HTMLParser()            
     return html_parser.unescape(text[i].replace('\n',' ') +' '+text[i+1].replace('\n',' ')) 
