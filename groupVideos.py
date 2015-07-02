@@ -12,11 +12,12 @@ def groupVideos():
     counts = json.load(open('rewatchPeaks.json'))
     for title in ids:
         try:
+            videoWithTranscript = ids[title]['url'][32:] # get id of video with transcript
             temp = {}
-            vidLen = ids[title]['length']
-            for i in ids[title]['ID']: 
+            vidLen = ids[title]['length'] # length of video with transcript
+            for i in ids[title]['ID']: # loop through list of grouped IDs
                 vidLen2 = length[i]['length']
-                if vidLen != vidLen2:
+                if i != videoWithTranscript:
                     ratio = float(vidLen)/vidLen2
                     for sec in counts[i]:
                         updated = int(round(int(sec)*ratio))
@@ -25,13 +26,12 @@ def groupVideos():
                         else:
                             temp[updated] += counts[i][sec]
                 else:
-                    key=i # video ID with the transcript
                     for sec in counts[i]:
                         if int(sec) not in temp:
                             temp[int(sec)] = counts[i][sec]
                         else:
                             temp[int(sec)] += counts[i][sec]
-            groupCounts[key] = temp
+            groupCounts[videoWithTranscript] = temp
             
         except KeyError: # transcript does not exist
             pass

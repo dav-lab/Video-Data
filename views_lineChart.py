@@ -14,7 +14,7 @@ def makeScripts():
     '''Creates a text file that contains all the scripts for the videos'''
     scripts = open('groupRewatchPeaksGraphScripts.txt', 'w')
     for video in videoInfo:
-        try:
+        try: # only get the scripts of the graphs with transcrips
             script, div = withPeaks(video)
             scripts.write(script + '\n')
             scripts.write(div + '\n')

@@ -223,5 +223,63 @@ def getUniqueViews(dirname):
                 d[video]+=1
     with open('uniqueViews.json', 'w') as outfile:
         json.dump(d, outfile)
-            
-                
+        
+def groupUniqueViews(groupFile,uniqueFile):
+    '''Creates a json file that adds the number of views for multiple videos that are grouped together
+       :param groupFile: videoTitles.json contains the grouped video IDs
+        :param uniqueFile: uniqueViews.json contains the number of unique views for each video.'''
+    uniqueViews = {}
+    ids=json.load(open(groupFile))
+    unique=json.load(open(uniqueFile))
+    for title in ids:
+        try: # only get the group views for videos with transcripts
+            total=0
+            videoWithTranscript = ids[title]['url'][32:] # get id of video with transcript
+            for i in ids[title]['ID']:
+                total += unique[i]
+            uniqueViews[videoWithTranscript] = total
+        except KeyError:
+            pass # transcript does not exist
+    with open('uniqueGroupViews.json', 'w') as outfile:
+        json.dump(uniqueViews, outfile)   
+
+def getRatio():
+    '''Creates a dictionary where keys are seconds and views are ratios (totalView/uniqueUsers)'''
+    ratioDict={}
+    viewCounts=json.load(open('groupPeaks.json')) # total number of rewatches in all grouped videos
+    uniqueViewers=json.load(open('uniqueGroupViews.json')) # number of unique users for each video
+    for video in viewCounts:
+        d={}
+        for secs in viewCounts[video]:
+            ratio=float(viewCounts[video][secs])/uniqueViewers[video]
+            d[secs]=ratio
+        ratioDict[video]=d
+    with open('ratios.json', 'w') as outfile:
+        json.dump(ratioDict, outfile)   
+
+
+def getMaxRatio():
+    '''Returns the maximum ratio from ratios.json()'''
+    ratios=json.load(open('ratios.json'))
+    ratioList=[] # will store max ratio of each video
+    for video in ratios:
+        maxVal=max(ratios[video].values())
+        if maxVal==6917.0:
+            print video
+        ratioList.append(maxVal)
+    return max(ratioList)
+
+def normalize():
+    '''Normalizes a set of data by computing ratio/maxRatio. Creates a dictionary 
+    where the keys are video IDs and values are the ratios at every second.'''
+    ratioDict = {}
+    ratios=json.load(open('ratios.json'))
+    maxRatio=getMaxRatio()
+    for video in ratios:
+        one={}
+        for sec in ratios[video]:
+            one[sec]=float(ratios[video][sec])/maxRatio
+        ratioDict[video]=one
+    with open('normalize.json', 'w') as outfile:
+        json.dump(ratioDict, outfile)       
+        
