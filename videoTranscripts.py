@@ -36,6 +36,7 @@ def wordFreqCounter(newTranscript):
     for line in mylist:
         words=line.split() #splits line into individual words
         for word in words:
+            print type(word)
             if word not in commonWords:
                 if word in newDict:
                     newDict[word]+=1 #incrementing a key value pairing
@@ -100,8 +101,13 @@ for VIDEOID in videoIDs: #Goes through individual videoIDs in the list
     #    transcriptDict[VIDEOID] = ['NTA']
         
 #json.dump(transcriptSubDict,open('transcriptsXML.json','w'))
+<<<<<<< Updated upstream
 #json.dump(transcriptFreqDict,open('transcriptsWordFrequency.json','w'))
 json.dump(transcriptTimesDict,open('transcriptsTime.json','w'))
+=======
+json.dump(transcriptFreqDict,open('transcriptsWordFrequency.json','w'))
+#json.dump(transcriptTimesDict,open('transcriptsTime.json','w'))
+>>>>>>> Stashed changes
 #json.dump(transcriptDict,open('transcriptsParagraph.json','w'))
 #json.dump(transcriptFreqDict,open('transcriptsOrderedWords.json','w'))
         

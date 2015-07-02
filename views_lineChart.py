@@ -7,16 +7,19 @@ from bokeh.models import HoverTool
 from bruteforce import getPeaksForOneVideo
 import json
 
-json_data = open("groupPeaks.json").read() 
-videoInfo = json.loads(json_data)
+
+videoInfo = json.loads(open("groupPeaks.json").read())
 
 def makeScripts():
     '''Creates a text file that contains all the scripts for the videos'''
     scripts = open('groupRewatchPeaksGraphScripts.txt', 'w')
     for video in videoInfo:
-        script, div = withPeaks(video)
-        scripts.write(script + '\n')
-        scripts.write(div + '\n')
+        try:
+            script, div = withPeaks(video)
+            scripts.write(script + '\n')
+            scripts.write(div + '\n')
+        except KeyError:
+            pass
     scripts.close()
     
 def noPeaks(videoID):
@@ -47,7 +50,12 @@ def noPeaks(videoID):
     return script, div
 
 def withPeaks(videoID):
-    '''Plots a Bokeh graph of video views with the peaks'''
+    '''Plots a Bokeh graph of video views with the peaks''' 
+    wordfreq = json.loads(open("transcriptsWordFrequency.json").read())
+    titles = json.loads(open("videos.json").read())
+    
+    fiveWords=[wordfreq[videoID][i][0] for i in range(len(wordfreq[videoID])) if i <5]
+    stringFiveWords=', '.join(fiveWords)
     viewsDict = videoInfo[videoID]
       
     # x and y contain the points to plot on the graph
@@ -72,14 +80,15 @@ def withPeaks(videoID):
 
     hover = HoverTool(
         tooltips = [
-            ("(a,b)", "(@a, @b)"),
+            ("(a,b)", "(@x, @y)"),
         ]
     )
     
     TOOLS = 'resize,hover, save, pan, box_zoom, wheel_zoom'
     
-    p = figure(plot_width=400, plot_height=400,tools=TOOLS)
+    p = figure(plot_width=400, plot_height=400,tools=TOOLS, title_text_font_size='12pt',title=titles[videoID]['title'][21:], x_axis_label=stringFiveWords)
     
+    p.xaxis.axis_label_text_font_size='12pt'
     # add both a line and circles on the same plot
     p.line(x, y, legend=videoID, line_width=2)
     p.circle(a, b, fill_color="red", size=8)
