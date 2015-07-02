@@ -2,15 +2,34 @@
 Analyzing data from an online course.
 
 CONTENTS:
+
++ <b>bigram.py:</b> Finds the frequency of bigrams in video transcript. Helps with creating video descriptions.
+
++ <b>bigrams.json:</b> Dictionary of dictionaries where keys are video IDs and values are frequency of bigrams.
+
++ <b>bokeh.css:</b> CSS for generating Bokeh graphs on a webpage.
+
++ <b>bokeh.html:</b> Generates Bokeh graphs of video views. Contains scripts which create each individual Bokeh graph.
+
++ <b>bokeh.js:</b> JS for generating Bokeh graphs on a webpage. boxes() adds checkboxes, print() prints the videos that have been checked, ids() displays the video ID below each video.
+
++ <b>bokehPeaks.html:</b>  Generates Bokeh graphs of video views with the peaks highlighted as red points.
+
++ <b>bruteforce.py:</b>  Uses brute force algorithm to search for peaks.
+
 + <b>code.json:</b> List of all the video IDs
+
++ <b>commonWords.txt:</b>  Text file of common words.
  
-+ <b>create_intervals.py:</b> Creates a json file with the number of views at each second of every video
++ <b>create_intervals.py:</b> Creates a json file with the number of views at each second of every video.
  
 + <b>data.json:</b> Dictionary of dictionaries of all the video IDs and their view segments
 
 + <b>data.py:</b> Creates a json file with a dictionary of dictionaries of all the video IDs, view segments, view count, and length of video
 
 + <b>finalData.json:</b> Dictionary of dictionaries of all the video IDs, view segments, view count, and length of each video
+
++ <b>finalData.py:</b> Functions that clean up the raw student data, calculates rewatch counts, and calculates unique counts.
 
 + <b>transcripts.py:</b> Gets the video transcript at a given second
 
