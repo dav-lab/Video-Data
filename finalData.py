@@ -156,7 +156,7 @@ def countViews(filename):
             end = seg[1]
             for el in range(seg[0], end+1):
                 counterSeg[el] += 1
-        newC=Counter({ k: v for k, v in counterSeg.iteritems() if v not in (0, 1)}) 
+        newC=Counter({ k: v for k, v in counterSeg.iteritems() if v not in (0, 1)}) # ignore seconds with 0 or 1 views
         if len(newC) != 0:
             peaksDct[key] = newC
     return peaksDct   
@@ -180,7 +180,7 @@ def addRewatches(dirname):
         oneFile=json.load(open(dirname+'/'+i))
         secs={}
         for key in oneFile:
-            total=sum(oneFile[key].values())-len(oneFile[key].values())
+            total=sum(oneFile[key].values())-len(oneFile[key].values()) # subtract first time from rewatches
             secs[key]=total
         rewatches[i]=secs
     with open('totalRewatchTime.json', 'w') as outfile:
