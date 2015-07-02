@@ -31,6 +31,12 @@ CONTENTS:
 
 + <b>finalData.py:</b> Functions that clean up the raw student data, calculates rewatch counts, and calculates unique counts.
 
++ <b>graph analysis.py:</b> 
+
++ <b>graphAnalysis.py:</b> 
+
++ <b>graphScripts.txt:</b>  
+
 + <b>transcripts.py:</b> Gets the video transcript at a given second
 
 + <b>views.py:</b> Creates a list of dictionaries for one video which contain info about the number of views at each second
