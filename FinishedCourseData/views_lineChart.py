@@ -8,11 +8,11 @@ from bruteforce import getPeaksForOneVideo
 import json
 
 
-videoInfo = json.loads(open("groupPeaks.json").read())
+videoInfo = json.loads(open("FinishedCourseData/normalize.json").read())
 
 def makeScripts():
     '''Creates a text file that contains all the scripts for the videos'''
-    scripts = open('groupRewatchPeaksGraphScripts.txt', 'w')
+    scripts = open('normalize.txt', 'w')
     for video in videoInfo:
         try: # only get the scripts of the graphs with transcrips
             script, div = withPeaks(video)
@@ -51,8 +51,8 @@ def noPeaks(videoID):
 
 def withPeaks(videoID):
     '''Plots a Bokeh graph of video views with the peaks''' 
-    wordfreq = json.loads(open("transcriptsWordFrequency.json").read())
-    titles = json.loads(open("videos.json").read())
+    wordfreq = json.loads(open("videoTranscripts/transcriptsWordFrequency.json").read())
+    titles = json.loads(open("videoTranscripts/videos.json").read())
     
     fiveWords=[wordfreq[videoID][i][0] for i in range(len(wordfreq[videoID])) if i <5]
     stringFiveWords=', '.join(fiveWords)
