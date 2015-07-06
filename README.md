@@ -37,8 +37,28 @@ CONTENTS:
 
 + <b>graphScripts.txt:</b>  
 
+videoTranscripts Folder:
+
++ <b>commonWords.txt:</b> Text file of common English words
+ 
++ <b>csvToDict.py:</b> CSV into Dictionary (work in progress)
+
 + <b>transcripts.py:</b> Gets the video transcript at a given second
 
++ <b>transcriptsOrderedWords.json:</b> JSON file of video word frequencies with words ordered alphabetically 
+
++ <b>transcriptsParagraph.json:</b> JSON file of video transcripts in paragraph form
+
++ <b>transcriptsSentences.json:</b> JSON file of video transcripts as a list of sentences
+
++ <b>transcriptsTime.json:</b> JSON file file of video transcripts with start, duration and corresponding transcript sentences
+
++ <b>transcriptsWordFrequency.json:</b> JSON file of video word frequencies ordered by most frequent
+
++ <b>transcriptsXML.json:</b> JSON file of video transcipts in XML form
+
++ <b>videoTranscripts.py:</b> Gets video transcripts, cleans them, and creates video transcript json files
+-----------------------
 + <b>views.py:</b> Creates a list of dictionaries for one video which contain info about the number of views at each second
 
 + <b>views_lineChart.py:</b> Creates a line chart with Bokeh to show the peaks in video views
