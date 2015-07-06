@@ -1,6 +1,7 @@
 import csv
-from collections import OrderedDict
-reader = csv.reader(open('weeks.csv'))
+import natsort
+
+reader = csv.reader(open('/Users/emustafa-local/Video-Data/videoTranscripts/weeks.csv'))
 
 result = {}
 for row in reader:
@@ -8,6 +9,7 @@ for row in reader:
     if key in result:
         pass
     result[key] = row[1:]
-print OrderedDict(sorted(result.items()))
-print '\n'
-print result
+
+sorted_result = natsort.natsorted(result.items(), key=lambda y: y)
+
+print sorted_result
