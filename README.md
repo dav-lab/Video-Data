@@ -57,6 +57,8 @@ videoTranscripts Folder:
 
 + <b>transcriptsXML.json:</b> JSON file of video transcipts in XML form.
 
++ <b>videoTranscripts.py:</b> Gets video transcripts, cleans them, and creates video transcript json files.
+
 + <b>views.py:</b> Creates a list of dictionaries for one video which contain info about the number of views at each second
 
 + <b>views_lineChart.py:</b> Creates a line chart with Bokeh to show the peaks in video views
