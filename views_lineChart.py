@@ -12,7 +12,7 @@ videoInfo = json.loads(open("FinishedCourseData/normalize.json").read())
 
 def makeScripts():
     '''Creates a text file that contains all the scripts for the videos'''
-    scripts = open('normalize.txt', 'w')
+    scripts = open('Bokeh/normalize.txt', 'w')
     for video in videoInfo:
         try: # only get the scripts of the graphs with transcrips
             script, div = withPeaks(video)
@@ -74,7 +74,7 @@ def withPeaks(videoID):
     peaksList = getPeaksForOneVideo(videoID) # list of tuples
     for tup in peaksList:
         a.append(int(tup[0]))
-        b.append(tup[1])    
+        b.append(tup[1])  
 
     output_file("peaks.html")
 
@@ -86,7 +86,7 @@ def withPeaks(videoID):
     
     TOOLS = 'resize,hover, save, pan, box_zoom, wheel_zoom'
     
-    p = figure(plot_width=400, plot_height=400,tools=TOOLS, title_text_font_size='12pt',title=titles[videoID]['title'][21:], x_axis_label=stringFiveWords)
+    p = figure(plot_width=400, plot_height=400,tools=TOOLS, name=stringFiveWords, title_text_font_size='12pt',title=titles[videoID]['title'][21:], x_axis_label='time (s)', y_axis_label='views (%)')
     
     p.xaxis.axis_label_text_font_size='12pt'
     # add both a line and circles on the same plot

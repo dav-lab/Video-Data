@@ -16,15 +16,13 @@ def getPeaksForOneVideo(videoID):
     x = d.keys()
     y = d.values()
     if len(y) > 1:
-        for pt in range(len(y)):
-            if pt==0: # is first point a peak?
-                if y[pt+1] < y[pt]:
-                    peaks.append((x[pt],y[pt]))
-            elif pt==len(y)-1: # is last point a peak?
-                if y[pt-1] < y[pt]:
+        for pt in range(5,len(y)):
+            if pt==len(y)-1: # is last point a peak?
+                if y[pt-1] < y[pt] and y[pt]>=0.25:
                     peaks.append((x[pt],y[pt])) 
             elif y[pt-1] < y[pt] and y[pt+1] < y[pt]:
-                peaks.append((x[pt],y[pt]))
+                if y[pt]>=0.25:
+                    peaks.append((x[pt],y[pt]))
     return peaks
 
 def getPeaks(filename):
@@ -51,5 +49,20 @@ def getPeaks(filename):
     with open('peaksGreaterThan025.json', 'w') as outfile:
         json.dump(peaks, outfile)
 
-getPeaks('FinishedCourseData/normalize.json')
+def groupPeaksByWeek():
+    d={}
+    peaks=json.load(open('FinishedCourseData/peaksGreaterThan025.json'))
+    weeks=json.load(open('videoTranscripts/videoTitles.json'))
+    for video in weeks:
+        try:
+            if weeks[video]['week'] not in d:
+                i=weeks[video]['url'][32:]
+                d[weeks[video]['week']]={i:peaks[i]}
+            else:
+                d[weeks[video]['week']][i]=peaks[i]
+        except KeyError:
+            pass
+    return d
+        
+#getPeaks('FinishedCourseData/normalize.json')
 #print getPeaksForOneVideo('qic9_yRWj5U')
