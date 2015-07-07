@@ -283,4 +283,3 @@ def normalize():
         ratioDict[video]=one
     with open('normalize.json', 'w') as outfile:
         json.dump(ratioDict, outfile)       
-        
