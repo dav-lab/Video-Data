@@ -260,10 +260,49 @@ def groupUniqueViews(groupFile,uniqueFile):
 #groupUniqueViews('Video-Data/videoTranscripts/videoTitles.json','Video-Data/FinishedCourseData/uniqueViews.json')
 
 
+def groupVideos():
+    '''Aggregates the views of the videos that are the same (but at different speeds).
+    Creates a json file where the 147 keys are video IDs with transcripts and values are views
+    at each second'''
+    groupCounts = {}
+    ids = json.load(open('Video-Data/videoTranscripts/videoTitles.json'))
+    length = json.load(open('Video-Data/FinishedCourseData/lengthsAndViews.json'))
+    counts = json.load(open('Video-Data/FinishedCourseData/rewatchPeaks.json'))
+    for title in ids:
+        try:
+            videoWithTranscript = ids[title]['url'][32:] # get id of video with transcript
+            temp = {}
+            vidLen = ids[title]['length'] # length of video with transcript
+            for i in ids[title]['ID']: # loop through list of grouped IDs
+                vidLen2 = length[i]['length']
+                if i != videoWithTranscript:
+                    ratio = float(vidLen)/vidLen2
+                    for sec in counts[i]:
+                        updated = int(round(int(sec)*ratio))
+                        if updated not in temp:
+                            temp[updated] = counts[i][sec]
+                        else:
+                            temp[updated] += counts[i][sec]
+                else:
+                    for sec in counts[i]:
+                        if int(sec) not in temp:
+                            temp[int(sec)] = counts[i][sec]
+                        else:
+                            temp[int(sec)] += counts[i][sec]
+            groupCounts[videoWithTranscript] = temp
+            
+        except KeyError: # transcript does not exist
+            pass
+            
+    with open('groupPeaks.json', 'w') as outfile:
+            json.dump(groupCounts, outfile)
+
+
+
 def getRatio():
     '''Creates a dictionary where keys are seconds and views are ratios (totalView/uniqueUsers)'''
     ratioDict={}
-    viewCounts=json.load(open('Video-Data/groupPeaks.json')) # total number of rewatches in all grouped videos
+    viewCounts=json.load(open('Video-Data/FinishedCourseData/groupPeaks.json')) # total number of rewatches in all grouped videos
     uniqueViewers=json.load(open('Video-Data/FinishedCourseData/uniqueGroupViews.json')) # number of unique users for each video
     for video in viewCounts:
         d={}
