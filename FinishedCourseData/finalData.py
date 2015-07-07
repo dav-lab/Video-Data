@@ -35,7 +35,6 @@ def generateVideoDict(fileName):
     '''generates a dictionary where keys are video ids and values are lists of 3-tuples
     (event type, timestamp, current video time). If the events is not play or pause video,
     a 2-tuple is create instead'''
-    #(event type,timestamp,current video time,speed) for video events
     filename=json.load(open(fileName))
     video={}
     code=''
@@ -66,9 +65,9 @@ def generateVideoDict(fileName):
                 else:
                     continue
             if code not in video:
-                video[code]=[(filename[i]['event_type'],datetime.datetime.utcfromtimestamp(filename[i]['timestamp']/1000.0),current,float(videoDict['speed']))]
+                video[code]=[(filename[i]['event_type'],datetime.datetime.utcfromtimestamp(filename[i]['timestamp']/1000.0),current)]
             else:
-                video[code].append((filename[i]['event_type'],datetime.datetime.utcfromtimestamp(filename[i]['timestamp']/1000.0),current,float(videoDict['speed'])))
+                video[code].append((filename[i]['event_type'],datetime.datetime.utcfromtimestamp(filename[i]['timestamp']/1000.0),current))
         else:
             if found:
                 video[code].append((filename[i]['event_type'],datetime.datetime.utcfromtimestamp(filename[i]['timestamp']/1000.0)))
@@ -91,7 +90,7 @@ def parseTimes(listTuples):
                 end=listTuples[i+1][2]
             else:
                 diff=listTuples[i+1][1]-listTuples[i][1]
-                end=start+(listTuples[i][3]*diff.total_seconds())
+                end=start+diff.total_seconds()
             if math.isnan(start)==False and math.isnan(end)==False:
                 intervals.append([start,end])
             i+=1

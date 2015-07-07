@@ -9,22 +9,20 @@ def getPeaksForOneVideo(videoID):
     '''Returns a list of peak points (tuples)
     :param videoID: videoID string'''
     peaks=[] 
-    json_data = open("groupPeaks.json").read() 
+    json_data = open("FinishedCourseData/normalize.json").read() 
     videoInfo = json.loads(json_data)
     viewsDict = videoInfo[videoID]
     d = OrderedDict(sorted(viewsDict.items(), key=lambda t: int(t[0]))) 
     x = d.keys()
     y = d.values()
     if len(y) > 1:
-        for pt in range(len(y)):
-            if pt==0: # is first point a peak?
-                if y[pt+1] < y[pt]:
-                    peaks.append((x[pt],y[pt]))
-            elif pt==len(y)-1: # is last point a peak?
-                if y[pt-1] < y[pt]:
+        for pt in range(5,len(y)):
+            if pt==len(y)-1: # is last point a peak?
+                if y[pt-1] < y[pt] and y[pt]>=0.25:
                     peaks.append((x[pt],y[pt])) 
             elif y[pt-1] < y[pt] and y[pt+1] < y[pt]:
-                peaks.append((x[pt],y[pt]))
+                if y[pt]>=0.25:
+                    peaks.append((x[pt],y[pt]))
     return peaks
 
 def getPeaks(filename):
@@ -39,18 +37,32 @@ def getPeaks(filename):
         x = d.keys()
         y = d.values()
         if len(y) > 1:
-            for pt in range(len(y)):
-                if pt==0: # is first point a peak?
-                    if y[pt+1] < y[pt]:
-                        peaksList.append((x[pt],y[pt]))
-                elif pt==len(y)-1: # is last point a peak?
-                    if y[pt-1] < y[pt]:
+            #disregard peaks in first 5 seconds
+            for pt in range(5,len(y)):
+                if pt==len(y)-1: # is last point a peak?
+                    if y[pt-1] < y[pt] and y[pt]>=0.25:
                         peaksList.append((x[pt],y[pt])) 
                 elif y[pt-1] < y[pt] and y[pt+1] < y[pt]:
-                    peaksList.append((x[pt],y[pt]))
+                    if y[pt]>=0.25:
+                        peaksList.append((x[pt],y[pt]))
             peaks[video]=peaksList
-    return peaks
+    with open('peaksGreaterThan025.json', 'w') as outfile:
+        json.dump(peaks, outfile)
 
-                    
-#getPeaks('rewatchPeaks.json')
-print getPeaksForOneVideo('qic9_yRWj5U')
+def groupPeaksByWeek():
+    d={}
+    peaks=json.load(open('FinishedCourseData/peaksGreaterThan025.json'))
+    weeks=json.load(open('videoTranscripts/videoTitles.json'))
+    for video in weeks:
+        try:
+            if weeks[video]['week'] not in d:
+                i=weeks[video]['url'][32:]
+                d[weeks[video]['week']]={i:peaks[i]}
+            else:
+                d[weeks[video]['week']][i]=peaks[i]
+        except KeyError:
+            pass
+    return d
+        
+#getPeaks('FinishedCourseData/normalize.json')
+#print getPeaksForOneVideo('qic9_yRWj5U')

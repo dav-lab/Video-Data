@@ -1,4 +1,4 @@
-# Whitney and Diana
+#Whitney and Diana
 #Last Updated: 7/1/2015
 
 import re
@@ -36,7 +36,7 @@ def wordFreqCounter(newTranscript):
     for line in mylist:
         words=line.split() #splits line into individual words
         for word in words:
-            print type(word)
+            #print type(word)
             if word not in commonWords:
                 if word in newDict:
                     newDict[word]+=1 #incrementing a key value pairing
@@ -76,7 +76,7 @@ for VIDEOID in videoIDs: #Goes through individual videoIDs in the list
             subs = info[VIDEOID]
             #subs=requests.get('http://video.google.com/timedtext?lang=en&v='+VIDEOID).content 
             a=xmltodict.parse(subs)
-            listOfSubs=a['transcript']['text']   
+            listOfSubs=a['transcript']['text']  
             transcriptList = []# list for transcript
             transcriptTimesList=[]# list for the tuple (start time, transcript line)
             i = 1
@@ -101,13 +101,13 @@ for VIDEOID in videoIDs: #Goes through individual videoIDs in the list
     #    transcriptDict[VIDEOID] = ['NTA']
         
 #json.dump(transcriptSubDict,open('transcriptsXML.json','w'))
-<<<<<<< Updated upstream
+#<<<<<<< Updated upstream
 #json.dump(transcriptFreqDict,open('transcriptsWordFrequency.json','w'))
-json.dump(transcriptTimesDict,open('transcriptsTime.json','w'))
-=======
-json.dump(transcriptFreqDict,open('transcriptsWordFrequency.json','w'))
 #json.dump(transcriptTimesDict,open('transcriptsTime.json','w'))
->>>>>>> Stashed changes
+#=======
+#json.dump(transcriptFreqDict,open('transcriptsWordFrequency.json','w'))
+#json.dump(transcriptTimesDict,open('transcriptsTime.json','w'))
+#>>>>>>> Stashed changes
 #json.dump(transcriptDict,open('transcriptsParagraph.json','w'))
 #json.dump(transcriptFreqDict,open('transcriptsOrderedWords.json','w'))
         
@@ -137,3 +137,28 @@ def oneTranscript(): #Code for looking at transcript of one video
     except (IndexError, ExpatError), e:
         print 'indexError on ',VIDEOID 
     wordFreqCounter(newTranscript)
+    
+def getSub(time,VIDEOID):
+    '''returns the transcript (string) of the video at the given time
+        :param time: given time in seconds
+        :param subList: list of the entire video's transcript'''
+    subs = info[VIDEOID]
+    a=xmltodict.parse(subs)
+    subList=a['transcript']['text']  
+    startTimes=[]
+    text=[] # contains entire transcript
+    for i in subList:
+        startTimes.append(float(i['@start']))
+        try:
+            text.append(i['#text'])
+        except KeyError:
+            text.append('No sub')
+    breakpoints=startTimes[1:] # list of all the start times of the video
+    # bisect returns an insertion point which comes after ane existing entries of time in breakpoints
+    #for t in time:
+        #i=bisect.bisect(breakpoints,t) 
+    i=bisect.bisect(breakpoints,time) 
+    html_parser = HTMLParser.HTMLParser()            
+    return html_parser.unescape(text[i].replace('\n',' ') +' '+text[i+1].replace('\n',' ')) 
+
+#print getSub(15,listOfSubs)
