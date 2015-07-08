@@ -505,5 +505,5 @@ def ppBins(allPP):
         bins = binning(vid,times)
         binCount = collections.Counter(bins)
         d[vid] = binCount
-    with open('playBins.json', 'w') as outfile:
+    with open('pauseBins.json', 'w') as outfile:
         json.dump(d, outfile)   
