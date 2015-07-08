@@ -37,6 +37,20 @@ CONTENTS:
 
 + <b>graphScripts.txt:</b>  
 
+FinishedCourseData Folder:
+
++ <b>allPauses.json:</b> dictionary where keys are video IDs and values are lists of times during the video when students  pressed pause.
+
++ <b>allPlays.json:</b> dictionary where keys are video IDs and values are lists of times during the video when students  pressed play.
+
++ <b>pausePlay.json:</b> dictionary where keys are video IDs and values are lists of tuples: (when the student pressed pause, how long they paused for). 
+
++ <b>pauseBins.json:</b> sorts allPauses.json into bins.
+
++ <b>playBins.json:</b> sorts allPlays.json into bins.
+
++ <b>pausePlayBins.json:</b> sorts pausePlay.json into bins.
+
 videoTranscripts Folder:
 
 + <b>commonWords.txt:</b> Text file of common English words.
