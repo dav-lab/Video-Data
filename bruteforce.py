@@ -9,10 +9,10 @@ def getPeaksForOneVideo(videoID):
     '''Returns a list of peak points (tuples)
     :param videoID: videoID string'''
     peaks=[] 
-    json_data = open("FinishedCourseData/normalize.json").read() 
+    json_data = open("FinishedCourseData/pausePlayBins.json").read() 
     videoInfo = json.loads(json_data)
     viewsDict = videoInfo[videoID]
-    d = OrderedDict(sorted(viewsDict.items(), key=lambda t: int(t[0]))) 
+    d = OrderedDict(sorted(viewsDict.items(), key=lambda t: float(t[0]))) # the points of the peaks
     x = d.keys()
     y = d.values()
     if len(y) > 1:
@@ -24,6 +24,8 @@ def getPeaksForOneVideo(videoID):
                 if y[pt]>=0.25:
                     peaks.append((x[pt],y[pt]))
     return peaks
+
+#getPeaksForOneVideo("jx0WwCGCh-0")
 
 def getPeaks(filename):
     '''Returns a dictionary where keys are video IDs and values are a list of peak points (tuples)
@@ -50,17 +52,19 @@ def getPeaks(filename):
         json.dump(peaks, outfile)
 
 def groupPeaksByWeek():
+    '''Returns a dictionary where keys are week number and values are dictionaries where
+    keys are video IDs and values are lists of peaks'''
     d={}
     peaks=json.load(open('FinishedCourseData/peaksGreaterThan025.json'))
     weeks=json.load(open('videoTranscripts/videoTitles.json'))
     for video in weeks:
         try:
             if weeks[video]['week'] not in d:
-                i=weeks[video]['url'][32:]
+                i=weeks[video]['url'][32:] # video id of video with transcript
                 d[weeks[video]['week']]={i:peaks[i]}
             else:
                 d[weeks[video]['week']][i]=peaks[i]
-        except KeyError:
+        except KeyError: # if video does not have url or transcript
             pass
     return d
         

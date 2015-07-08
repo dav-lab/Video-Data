@@ -8,11 +8,11 @@ from bruteforce import getPeaksForOneVideo
 import json
 
 
-videoInfo = json.loads(open("FinishedCourseData/normalize.json").read())
+videoInfo = json.loads(open("FinishedCourseData/pausePlayBins.json").read())
 
 def makeScripts():
     '''Creates a text file that contains all the scripts for the videos'''
-    scripts = open('Bokeh/normalize.txt', 'w')
+    scripts = open('Bokeh/pausePlayBins.txt', 'w')
     for video in videoInfo:
         try: # only get the scripts of the graphs with transcrips
             script, div = withPeaks(video)
@@ -24,13 +24,14 @@ def makeScripts():
     
 def noPeaks(videoID):
     '''Plots a Bokeh graph of video views'''
+    titles = json.loads(open("videoTranscripts/videos.json").read())
     viewsDict = videoInfo[videoID]
       
     # x and y contain the points to plot on the graph
     x = []
     y = []
     
-    toInt = map(int, viewsDict.keys())
+    toInt = map(float, viewsDict.keys())
     toInt.sort()
     for k in toInt: # populate x and y
         x.append(k)
@@ -38,10 +39,12 @@ def noPeaks(videoID):
         
     # create a new plot with a title and axis labels
 
-    p = figure(title="Peaks in Video Views", x_axis_label='time (sec)', y_axis_label='views', plot_width=300,plot_height=300)
+    TOOLS = 'resize,hover, save, pan, box_zoom, wheel_zoom'
+
+    p = figure(plot_width=400, plot_height=400,tools=TOOLS, title_text_font_size='12pt',title=titles[videoID]['title'][21:], x_axis_label='time (s)', y_axis_label='counts')
 
     # add a line and set line thickness
-    p.line(x, y, legend=videoID, line_width=2)
+    p.line(x[1:], y[1:], legend=videoID, line_width=2)
     
     # display chart 
     #output_file("views.html", title="Peaks in Video Views")
@@ -62,7 +65,7 @@ def withPeaks(videoID):
     x = []
     y = []
     
-    toInt = map(int, viewsDict.keys())
+    toInt = map(float, viewsDict.keys())
     toInt.sort()
     for k in toInt: # populate x and y
         x.append(int(k))
@@ -73,7 +76,7 @@ def withPeaks(videoID):
     b = []
     peaksList = getPeaksForOneVideo(videoID) # list of tuples
     for tup in peaksList:
-        a.append(int(tup[0]))
+        a.append(float(tup[0]))
         b.append(tup[1])  
 
     output_file("peaks.html")
@@ -86,7 +89,7 @@ def withPeaks(videoID):
     
     TOOLS = 'resize,hover, save, pan, box_zoom, wheel_zoom'
     
-    p = figure(plot_width=400, plot_height=400,tools=TOOLS, name=stringFiveWords, title_text_font_size='12pt',title=titles[videoID]['title'][21:], x_axis_label='time (s)', y_axis_label='views (%)')
+    p = figure(plot_width=400, plot_height=400,tools=TOOLS, name=stringFiveWords, title_text_font_size='12pt',title=titles[videoID]['title'][21:], x_axis_label='time (s)', y_axis_label='counts')
     
     p.xaxis.axis_label_text_font_size='12pt'
     # add both a line and circles on the same plot
@@ -98,5 +101,5 @@ def withPeaks(videoID):
     return script, div
 
 makeScripts()
-#withPeaks('qic9_yRWj5U')
-
+#withPeaks('J1zJNuEFw2U')
+#noPeaks("IRxsjPGh1oQ")
