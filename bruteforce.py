@@ -16,16 +16,18 @@ def getPeaksForOneVideo(videoID):
     x = d.keys()
     y = d.values()
     if len(y) > 1:
-        for pt in range(5,len(y)):
-            if pt==len(y)-1: # is last point a peak?
-                if y[pt-1] < y[pt] and y[pt]>=0.25:
-                    peaks.append((x[pt],y[pt])) 
-            elif y[pt-1] < y[pt] and y[pt+1] < y[pt]:
+        for pt in range(5,len(y)-1): # ignore peaks in first 5 seconds and the last second
+            #if pt==len(y)-1: # is last point a peak?
+            #    if y[pt-1] < y[pt] and y[pt]>=0.25:
+            #        peaks.append((x[pt],y[pt])) 
+            if y[pt-1] < y[pt] and y[pt+1] < y[pt]:
                 if y[pt]>=0.25:
                     peaks.append((x[pt],y[pt]))
-    return peaks
+    #only return top 5 peaks
+    sortedPeaks=sorted(peaks, key=lambda i:i[1], reverse=True)
+    return sortedPeaks[:5]
 
-#getPeaksForOneVideo("jx0WwCGCh-0")
+#getPeaksForOneVideo('J1zJNuEFw2U')
 
 def getPeaks(filename):
     '''Returns a dictionary where keys are video IDs and values are a list of peak points (tuples)

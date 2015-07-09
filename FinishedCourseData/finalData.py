@@ -531,3 +531,35 @@ def ppBins(allPP):
         d[vid] = binCount
     with open('pauseBins.json', 'w') as outfile:
         json.dump(d, outfile)   
+
+beta = [32] # can also be 2,4,16 depending on how smooth we want it
+
+def smooth(x,beta):
+    """ kaiser window smoothing """
+    window_len=11
+    s = numpy.r_[x[window_len-1:0:-1],x,x[-1:-window_len:-1]]
+    w = numpy.kaiser(window_len,beta)
+    y = numpy.convolve(w/w.sum(),s,mode='valid')
+    return y[5:len(y)-5]
+ 
+def getSmoothPoints(filename): # "FinishedCourseData/pausePlayBins.json"
+    videoInfo = json.loads(open(filename).read())
+    d={}
+    for vid in videoInfo:
+        dataX= map(float,videoInfo[vid].keys())
+        dataX.sort()
+        dataY= []
+        for elt in dataX:
+            pt = videoInfo[vid][str(elt)]
+            dataY.append(pt)
+    return d
+    
+x = numpy.array(dataX)
+y = numpy.array(dataY)
+
+# smoothing the data
+pylab.figure(1)
+pylab.plot(x,y,'-k',label="original signal",alpha=.3)
+for b in beta:
+    yy = smooth(y,b) 
+    pylab.plot(x,yy,label="filtered (beta = "+str(b)+")")
