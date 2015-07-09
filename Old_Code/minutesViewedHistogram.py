@@ -4,17 +4,20 @@
 
 import numpy as np
 import scipy.special
+import pandas as pd
 import json
 
 from bokeh.plotting import figure, show, output_file, vplot
 
-filename=json.load(open('totalTime.json'))
+id='SVQuLOiHJeE'
+
+filename=json.load(open('FinishedCourseData/pausePlayBins.json'))
 
 output_file('histogram.html')
 
 p1 = figure(title="Total Time Spent Watching Videos",tools="save", background_fill="#E8DDCB")
 
-measured = filename.values()[:4000] # Bokeh caps the data at 4000, so we are unable to plot all 6000 students
+measured = pd.DataFrame(filename) # Bokeh caps the data at 4000, so we are unable to plot all 6000 students
 
 
 hist, edges = np.histogram(measured, bins=200)
