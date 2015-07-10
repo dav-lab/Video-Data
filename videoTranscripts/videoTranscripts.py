@@ -26,7 +26,7 @@ def wordFreqCounter(newTranscript):
     mylist.append(joiner) #appending the full transcript (a string) to a list
        
     commonWords = []
-    commonWordsFile = open('commonWords.txt','r').readlines()#reading the list of common words
+    commonWordsFile = open('videoTranscripts/commonWords.txt','r').readlines()#reading the list of common words
     
     #for loop to get rid of new line character and lowercase the words
     for commonword in commonWordsFile:
@@ -47,7 +47,7 @@ def wordFreqCounter(newTranscript):
     return d.most_common()   
     
 APIKEY='AIzaSyDKoeFuf8lF9bO3cQasg5MSf6SDjgBjDgc'
-videoReader = open('videos.json').read()
+videoReader = open('videoTranscripts/videos.json').read()
 videoLoader = json.loads(videoReader)
 #videoIDs =[]
 videoIDsAndTitles = []
@@ -57,7 +57,7 @@ videoIDsAndTitles = []
 for i in videoLoader.values():
     videoIDsAndTitles.append((i,i['title'].split('-')[4]))
     
-json_data = open('transcript_JSON/transcriptsXML.json').read()
+json_data = open('videoTranscripts/transcriptsXML.json').read()
 info=json.loads(json_data)
 
 #for i in info:
@@ -71,7 +71,7 @@ for VIDEOID in videoIDs: #Goes through individual videoIDs in the list
     #info=json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2Cstatistics&id='+VIDEOID+'&key='+APIKEY).content)
     #try:
         #if info['items'][0]['contentDetails']['caption']=='true': #checks if the video has the caption(transcript) info
-            json_data = open('transcript_JSON/transcriptsXML.json').read()
+            json_data = open('videoTranscripts/transcriptsXML.json').read()
             info=json.loads(json_data)
             subs = info[VIDEOID]
             #subs=requests.get('http://video.google.com/timedtext?lang=en&v='+VIDEOID).content 
