@@ -35,3 +35,7 @@ for b in beta:
  pylab.plot(yy,label="filtered (beta = "+str(b)+")")
 pylab.legend()
 pylab.show()
+
+print x
+print '*****'
+print yy

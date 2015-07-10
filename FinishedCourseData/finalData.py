@@ -13,6 +13,7 @@ from collections import Counter
 import math
 import sklearn
 from sklearn import preprocessing
+import pylab
 
 
 APIKEY='API'
@@ -361,7 +362,7 @@ def normalizeTool(filename):
             normalizedData[vid][keys[i]] = normalized[i]
     return normalizedData        
  
-normalizeTool('FinishedCourseData/pausePlayBins.json')
+#normalizeTool('FinishedCourseData/pausePlayBins.json')
 
                                                                                                                                                                                                                                                                                                       
 def getBreaks(filename):
@@ -532,8 +533,6 @@ def ppBins(allPP):
     with open('pauseBins.json', 'w') as outfile:
         json.dump(d, outfile)   
 
-beta = [32] # can also be 2,4,16 depending on how smooth we want it
-
 def smooth(x,beta):
     """ kaiser window smoothing """
     window_len=11
@@ -542,7 +541,10 @@ def smooth(x,beta):
     y = numpy.convolve(w/w.sum(),s,mode='valid')
     return y[5:len(y)-5]
  
-def getSmoothPoints(filename): # "FinishedCourseData/pausePlayBins.json"
+def getSmoothPoints(filename): 
+    '''Creates a dictionary where keys are video IDs and values are
+       number of pause/play events are each second. Smoothed values.
+       :param filename: data set, dictionary form'''
     videoInfo = json.loads(open(filename).read())
     d={}
     for vid in videoInfo:
@@ -551,15 +553,21 @@ def getSmoothPoints(filename): # "FinishedCourseData/pausePlayBins.json"
         dataY= []
         for elt in dataX:
             pt = videoInfo[vid][str(elt)]
-            dataY.append(pt)
-    return d
-    
-x = numpy.array(dataX)
-y = numpy.array(dataY)
+            dataY.append(pt) 
+            
+        # x,y are original points (sorted)  
+        # x, yy are smoothed points (sorted)       
+        x = numpy.array(dataX) # put data in numpy format for smooth()
+        y = numpy.array(dataY)
+        yy = smooth(y,32) # can be any number depending on how smooth we want it
+        # map the 2 lists into dictionaries
+        toString = map(str, x.tolist())
+        smoothPts = dict(zip(toString,yy.tolist()))
+        d[vid]=smoothPts
+    with open('FinishedCourseData/pauseBinsSmooth.json', 'w') as outfile:
+        json.dump(d, outfile) 
 
-# smoothing the data
-pylab.figure(1)
-pylab.plot(x,y,'-k',label="original signal",alpha=.3)
-for b in beta:
-    yy = smooth(y,b) 
-    pylab.plot(x,yy,label="filtered (beta = "+str(b)+")")
+getSmoothPoints("FinishedCourseData/pauseBins.json")
+
+
+

@@ -9,7 +9,7 @@ def getPeaksForOneVideo(videoID):
     '''Returns a list of peak points (tuples)
     :param videoID: videoID string'''
     peaks=[] 
-    json_data = open("FinishedCourseData/pausePlayBins.json").read() 
+    json_data = open("FinishedCourseData/pauseBinsSmooth.json").read() 
     videoInfo = json.loads(json_data)
     viewsDict = videoInfo[videoID]
     d = OrderedDict(sorted(viewsDict.items(), key=lambda t: float(t[0]))) # the points of the peaks
@@ -36,20 +36,17 @@ def getPeaks(filename):
     data=json.load(open(filename))
     peaks={}
     for video in data:
-        peaksList=[]      
-        d = OrderedDict(sorted(data[video].items(), key=lambda t: int(t[0]))) 
+        peaksList=[]     
+        d = OrderedDict(sorted(data[video].items(), key=lambda t: float(t[0]))) 
         x = d.keys()
         y = d.values()
         if len(y) > 1:
-            #disregard peaks in first 5 seconds
-            for pt in range(5,len(y)):
-                if pt==len(y)-1: # is last point a peak?
-                    if y[pt-1] < y[pt] and y[pt]>=0.25:
-                        peaksList.append((x[pt],y[pt])) 
-                elif y[pt-1] < y[pt] and y[pt+1] < y[pt]:
+            for pt in range(5,len(y)-1): # ignore peaks in first 5 seconds and the last second
+                if y[pt-1] < y[pt] and y[pt+1] < y[pt]:
                     if y[pt]>=0.25:
                         peaksList.append((x[pt],y[pt]))
-            peaks[video]=peaksList
+            sortedPeaks=sorted(peaksList, key=lambda i:i[1], reverse=True)
+        peaks[video]=sortedPeaks[:5]
     with open('peaksGreaterThan025.json', 'w') as outfile:
         json.dump(peaks, outfile)
 
@@ -70,5 +67,5 @@ def groupPeaksByWeek():
             pass
     return d
         
-#getPeaks('FinishedCourseData/normalize.json')
+getPeaks('FinishedCourseData/pausePlayBinsSmooth.json')
 #print getPeaksForOneVideo('qic9_yRWj5U')
