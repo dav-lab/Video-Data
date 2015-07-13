@@ -28,7 +28,7 @@ class LemmaTokenizer(object):
      def __call__(self, doc):
          return [self.wnl.lemmatize(t) for t in word_tokenize(doc)]
          
-wordFreqDict = json.load(open('../../Video-Data/videoTranscripts/transcriptNewWordFreq.json'))
+wordFreqDict = json.load(open('../transcriptNewWordFreq.json'))
 vocabs = []
 for key in wordFreqDict:
     vocabs.extend(wordFreqDict[key].keys())
@@ -39,7 +39,7 @@ vocabList = list(set(vocabs))
     
 
 textFilesList = os.listdir(os.getcwd())
-commonWords = open('../../Video-Data/videoTranscripts/commonWords.txt','r').readlines()
+commonWords = open('../commonWords2.txt','r').readlines()
 commonWordsList = []
 for i in commonWords:
     commonWordsList.append(i.replace('\n',''))
@@ -60,7 +60,7 @@ for i in lemList:
         stemList.append(stem(i))
 stemList = list(set(stemList))
 
-vectorizer = CountVectorizer(input='filename',lowercase=True, stop_words=commonWordsList)
+vectorizer = CountVectorizer(input='filename',lowercase=True,stop_words=commonWordsList)
 
 
 dtm = vectorizer.fit_transform(filenames)
@@ -76,11 +76,11 @@ dtm.shape
 #X.shape
 #
 X = dtm
-#model = lda.LDA(n_topics=15, n_iter=500, random_state=1)
-#model.fit(X)
-#topic_word = model.topic_word_  # model.components_ also works
-#n_top_words = 8
-#for i, topic_dist in enumerate(topic_word):
-#     topic_words = np.array(vocab)[np.argsort(topic_dist)][:-n_top_words:-1]
-#     print('Topic {}: {}'.format(i, ' '.join(topic_words)))
+model = lda.LDA(n_topics=3, n_iter=500, random_state=1)
+model.fit(X)
+topic_word = model.topic_word_  # model.components_ also works
+n_top_words = 11
+for i, topic_dist in enumerate(topic_word):
+     topic_words = np.array(vocab)[np.argsort(topic_dist)][:-n_top_words:-1]
+     print('Topic {}: {}'.format(i, ' '.join(topic_words)))
 #
