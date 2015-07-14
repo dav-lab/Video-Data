@@ -609,7 +609,7 @@ def userEventList(fileName):
             pass
     return eventList
         
-def beforePlay(dirname, VIDEOID): #32 min 2:50
+def beforePlay(dirname, VIDEOID): #31 min
     '''Creates a dictionary where keys are bins (this depends on the transcript of the given video)
        and keys are lists of 5-tuples that show the 5 events before a play_video event.
        :param dirname: examtakers is a folder with student files.'''

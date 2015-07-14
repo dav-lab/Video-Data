@@ -151,17 +151,19 @@ def lengthDistribution(videoID, breakPt):
     p.xaxis.axis_label_text_font_size='12pt'
     p.yaxis.axis_label_text_font_size='12pt'    
 
-    hist, edges = np.histogram(filteredLen, bins=50)
+    hist, edges = np.histogram(filteredLen, bins=100)
     
     p.quad(top=hist, bottom=0, legend=str(percent)+'% below '+str(breakPt), left=edges[:-1], right=edges[1:],
        line_color="#033649",\
     )
 
-    #output_file('histogram.html')
-    #show(p)
-    script, div = components(p)
-    return script, div
-    
+    output_file('histogram.html')
+    show(p)
+    #script, div = components(p)
+    #return script, div
+
+lengthDistribution("IRxsjPGh1oQ",600)    
+            
 def makeScriptsHist():
     '''Creates a text file that contains all the scripts for the videos'''
     scripts = open('Bokeh/breakLens.txt', 'w')
@@ -188,4 +190,4 @@ def makeScriptsHist():
 #withPeaks("SVQuLOiHJeE")
 #noPeaks("IRxsjPGh1oQ")
 #lengthDistribution("IRxsjPGh1oQ",600)
-makeScriptsHist()
+#makeScriptsHist()
