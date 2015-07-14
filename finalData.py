@@ -118,7 +118,7 @@ def parseAllVid(videoDict):
             all[key]=parseTimes(videoDict[key])
     return all
 
-listOfFileNames=os.listdir('examtakers')
+#listOfFileNames=os.listdir('examtakers')
 
 def allUsers(listOfFiles):
     '''Takes in a list of files for each student and writes a json file with
@@ -643,7 +643,26 @@ def beforePlay(dirname, VIDEOID): #32 min 2:50
     with open('beforePlay_CJh-mscFZgU.json', 'w') as outfile:
         json.dump(d, outfile)                                                                                    
                                                                                                                                         
-                                                                                                                                                                                                                                  
+def percentViews():
+    '''Returns a dictionary where keys are video IDs and values are 
+       percentage of unique students who watched the video. There are 147 videos.'''
+    views=json.load(open('FinishedCourseData/uniqueViews.json'))
+    ids=json.load(open('videoTranscripts/videoTitles.json'))
+    d={}
+    for title in ids:
+        try: # only get the group views for videos with transcripts
+            total=0
+            videoWithTranscript = ids[title]['url'][32:] # get id of video with transcript
+            for i in ids[title]['ID']:
+                total += views[i]
+            percent = float(total)/6290 # 6290 is the total number of students
+            d[videoWithTranscript] = percent
+        except:
+            pass               
+    with open('percentViews.json', 'w') as outfile:
+        json.dump(d, outfile)                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+
+
 #TESTING
                                 
 #print analyzeUser('examtakers/_aziunojslooran.json','pGd3WqZK4Cg')
