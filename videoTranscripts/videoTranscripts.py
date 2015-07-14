@@ -1,0 +1,238 @@
+# Whitney and Diana
+#Last Updated: 7/1/2015
+
+import re
+import HTMLParser
+import json
+import datetime
+import collections
+from collections import OrderedDict
+from collections import Counter
+import ast
+import requests
+import xmltodict
+import bisect
+import os
+import isodate
+from xml.parsers.expat import ExpatError
+import pprint #for pretty printing
+from stemming.porter2 import stem
+from nltk import word_tokenize          
+from nltk.stem import WordNetLemmatizer 
+
+def wordFreqCounter(newTranscript): 
+    '''Takes in a transcript and creates a dictionary with the keys as the words and the values as the frequency'''
+    #cleans up the transcript  
+    joiner = ' '.join(newTranscript).replace("&#39;","'").replace("\n"," ").replace("."," ").replace("?"," ").replace(","," ").replace("--"," ").replace(":"," ").replace("&quot;"," ").replace("("," ").replace(")"," ").lower()
+    
+    mylist = []
+    mylist.append(joiner) #appending the full transcript (a string) to a list
+       
+    commonWords = []
+    commonWordsFile = open('videoTranscripts/commonWords.txt','r').readlines()#reading the list of common words
+    
+    #for loop to get rid of new line character and lowercase the words
+    for commonword in commonWordsFile:
+        commonword = commonword.replace("\n","").lower()
+        commonWords.append(commonword)    
+    newDict={}  
+    for line in mylist:
+        words=line.split() #splits line into individual words
+        for word in words:
+            #print type(word)
+            if word not in commonWords:
+                if word in newDict:
+                    newDict[word]+=1 #incrementing a key value pairing
+                else:
+                    newDict[word]=1 #creating a key value pairing
+    #return OrderedDict(sorted(newDict.items())) #makes the newDict alphabetized
+    d = Counter(newDict)                                              
+    return d.most_common()   
+    
+#APIKEY='AIzaSyDKoeFuf8lF9bO3cQasg5MSf6SDjgBjDgc'
+#videoReader = open('videoTranscripts/videos.json').read()
+#videoLoader = json.loads(videoReader)
+##videoIDs =[]
+#videoIDsAndTitles = []
+#for i in videoLoader: #appends videoIDs to the list videoIDs
+#    videoIDs.append(i)
+
+
+    
+json_data = open('videoTranscripts/transcriptsXML.json').read()
+info=json.loads(json_data)
+
+#for i in info:
+videoIDs = info.keys()
+
+transcriptDict = {} #Dictionary for videoIDs and transcript of video
+transcriptFreqDict = {} #Dictionary within a dictionary. Video id is first key. Second key is words in transcript, value is number of times it occurs
+transcriptTimesDict = {} #tuple within a dictionary. First key is Video ids and the value is a list of tuples with the first index as the time and the second index is a lin of the transcript 
+transcriptSubDict = {} #
+indexErrorList = [] # list of videos with an indexError because subs are not well formed
+
+for VIDEOID in videoIDs: #Goes through individual videoIDs in the list
+    #info=json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2Cstatistics&id='+VIDEOID+'&key='+APIKEY).content)
+    try:
+        #if info['items'][0]['contentDetails']['caption']=='true': #checks if the video has the caption(transcript) info
+            json_data = open('videoTranscripts/transcriptsXML.json').read()
+            info=json.loads(json_data)
+            subs = info[VIDEOID]
+            #subs=requests.get('http://video.google.com/timedtext?lang=en&v='+VIDEOID).content 
+            a=xmltodict.parse(subs)
+            listOfSubs=a['transcript']['text']  
+            transcriptList = []# list for transcript
+            transcriptTimesList=[]# list for the tuple (start time, transcript line)
+            html_parser = HTMLParser.HTMLParser()
+            for i in range(len(listOfSubs)):
+                if len(listOfSubs[i])>2:            
+                        transcript = html_parser.unescape(listOfSubs[i].items()[2][1])
+                        transcript = re.compile("[^\w']|_").sub(" ",transcript).strip()
+                        transcript = re.compile("[0-9]+").sub(" ",transcript).strip()
+                        transcriptList.append(transcript)
+                        value = (listOfSubs[i].items()[0][1],listOfSubs[i].items()[1][1],transcript)
+                        transcriptTimesList.append(value)
+                #transcriptSubDict[VIDEOID] =  subs+"\n"       
+                transcriptDict[VIDEOID] = transcriptList
+                #transcriptFreqDict[VIDEOID] = wordFreqCounter(transcriptList)
+                #transcriptTimesDict[VIDEOID] = transcriptTimesList
+    except IndexError:
+        indexErrorList.append(VIDEOID)
+
+    #except (IndexError, ExpatError, KeyError), e:
+    #    transcriptDict[VIDEOID] = ['NTA']
+        
+#json.dump(transcriptSubDict,open('transcriptsXML.json','w'))
+#<<<<<<< Updated upstream
+#json.dump(transcriptFreqDict,open('transcriptsWordFrequency.json','w'))
+#json.dump(transcriptTimesDict,open('transcriptsTime.json','w'))
+#=======
+#json.dump(transcriptFreqDict,open('videoTranscripts/transcriptsWordFrequency.json','w'))
+#json.dump(transcriptTimesDict,open('transcriptsTime.json','w'))
+#>>>>>>> Stashed changes
+#json.dump(transcriptDict,open('transcriptsParagraph.json','w'))
+#json.dump(transcriptFreqDict,open('transcriptsOrderedWords.json','w'))
+ 
+def printDict():
+    pprint.pprint(transcriptDict) #pretty prints the transcriptDict        
+
+def oneTranscript(): #Code for looking at transcript of one video
+    newTranscript = []
+    VIDEOID = 'zhKN60gDjk8'
+    info=json.loads(requests.get('https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2Cstatistics&id='+VIDEOID+'&key='+APIKEY).content)
+    #vidLength=info['items'][0]['contentDetails']['duration']
+    try:    
+        if info['items'][0]['contentDetails']['caption']=='true':
+            subs=requests.get('http://video.google.com/timedtext?lang=en&v='+VIDEOID).content
+            a=xmltodict.parse(subs)
+            listOfSubs=a['transcript']['text']
+            
+            #while loop traverses listOfSubs(not including first and last element because they don't have text)
+            #listOfSubs[i].items()[2][1] accesses ordered dict (like a tuple)
+            i = 1
+            while i <  len(listOfSubs)-1:
+                transcript = listOfSubs[i].items()[2][1]
+                newTranscript.append(transcript)
+                #print newTranscript
+                i += 1
+            print ''           
+    except (IndexError, ExpatError), e:
+        print 'indexError on ',VIDEOID 
+    wordFreqCounter(newTranscript)
+    
+def getSub(time,VIDEOID):
+    '''returns the transcript (string) of the video at the given time
+        :param time: given time in seconds
+        :param subList: list of the entire video's transcript'''
+    subs = info[VIDEOID]
+    a=xmltodict.parse(subs)
+    subList=a['transcript']['text']  
+    startTimes=[]
+    text=[] # contains entire transcript
+    for i in subList:
+        startTimes.append(float(i['@start']))
+        try:
+            text.append(i['#text'])
+        except KeyError:
+            text.append('No sub')
+    breakpoints=startTimes[1:] # list of all the start times of the video
+    # bisect returns an insertion point which comes after ane existing entries of time in breakpoints
+    #for t in time:
+        #i=bisect.bisect(breakpoints,t) 
+    i=bisect.bisect(breakpoints,time) 
+    html_parser = HTMLParser.HTMLParser()            
+    return html_parser.unescape(text[i].replace('\n',' ') +' '+text[i+1].replace('\n',' ')) 
+
+#myDict = {"cHpto4Yc45o": [["8",0.2518346624397862],["11",0.2518346624397862],["15",0.2518346624397862]],"BWBUXxyRILw": [],}
+
+peaksReader = open('pausePlaySmoothPeaks.json').read()
+peaksDict = json.loads(peaksReader)
+
+def getSubPeak(dictionary):
+    '''returns the transcript (string) of the video at the given time
+        :param time: given time in seconds
+        :param subList: list of the entire video's transcript'''
+    for videoID in dictionary:
+        if dictionary[videoID] == []:
+            pass
+        else:
+            try:
+                subs = info[videoID]
+                a=xmltodict.parse(subs)
+                subList=a['transcript']['text']  
+                startTimes=[]
+                text=[] # contains entire transcript
+                for i in subList:
+                    startTimes.append(float(i['@start']))
+                    try:
+                        text.append(i['#text'])
+                    except KeyError:
+                        text.append('No sub')
+                breakpoints=startTimes[1:] # list of all the start times of the video
+                # bisect returns an insertion point which comes after ane existing entries of time in breakpoints
+                #for t in time:
+                    #i=bisect.bisect(breakpoints,t)
+                for time in dictionary[videoID]:       
+                    i=bisect.bisect(breakpoints,float(time[0])) 
+                    html_parser = HTMLParser.HTMLParser()
+                    index = peaksDict[videoID].index(time)
+                    sentence = text[i].replace('\n',' ')
+                    peaksDict[videoID][index].append(html_parser.unescape(sentence))         
+                    try:
+                        x=1
+                        while peaksDict[videoID][index][2][0].isupper()==False:
+                            peaksDict[videoID][index][2]= html_parser.unescape(text[i-x].replace('\n',' '))+' '+peaksDict[videoID][index][2]
+                            x+=1
+                        y=1
+                        while peaksDict[videoID][index][2][-1] != '.':
+                            peaksDict[videoID][index][2]= peaksDict[videoID][0][2]+html_parser.unescape(text[i+y].replace('\n',' '))
+                            y+=1
+                    except IndexError:
+                        pass
+            except KeyError:
+                pass
+    return peaksDict
+
+json.dump(getSubPeak(peaksDict),open('videoTranscripts/transcriptsPeaks.json','w'))
+
+'''
+class LemmaTokenizer(object):
+     def __init__(self):
+         self.wnl = WordNetLemmatizer()
+     def __call__(self, doc):
+         return [self.wnl.lemmatize(t) for t in word_tokenize(doc)]  
+newDict={}
+newPeaksDict = getSubPeak(peaksDict)
+for i in newPeaksDict.keys():
+    value = ' '.join(transcriptDict[i])
+    textList = []
+    for x in value.split():
+        textList.append(stem(LemmaTokenizer()(x)[0]))
+    newDict[i] = ' '.join(textList)
+
+
+for i in newPeaksDict.keys():
+      textfile =open('../TextFiles/StemmedText/transcript_'+i+'.txt','w')
+      textfile.write(newDict[i])
+      textfile.close()  
+'''  

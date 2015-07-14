@@ -1,0 +1,7 @@
+div.plotdiv {
+  display: inline-table;
+}
+
+table {
+  float: left;
+  }
