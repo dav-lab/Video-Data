@@ -10,11 +10,12 @@ import json
 import numpy
 import pylab
 import numpy as np
+from bokeh.charts import BoxPlot, output_file, show
 
 
 
-videoInfo = json.loads(open("FinishedCourseData/pauseBinsSmooth.json").read()) # smoothed
-videoInfo2 = json.loads(open("FinishedCourseData/pauseBins.json").read()) # original
+videoInfo = json.loads(open("FinishedCourseData/pausePlayBinsSmooth.json").read()) # smoothed
+videoInfo2 = json.loads(open("FinishedCourseData/pausePlayBins.json").read()) # original
 wordfreq = json.loads(open("videoTranscripts/transcriptsWordFrequency.json").read())
 titles = json.loads(open("videoTranscripts/videos.json").read())
 lengthInfo = json.loads(open("FinishedCourseData/pausePlay.json").read()) # distribution of lengths
@@ -29,15 +30,15 @@ def sortDicts():
 
 def makeScripts():
     '''Creates a text file that contains all the scripts for the videos'''
-    scripts = open('Bokeh/pauseBins.txt', 'w')
-    sortedIDs = sortDicts()
-    for vid in sortedIDs:
-        try: # only get the scripts of the graphs with transcrips
-            script, div = withPeaks(vid)
-            scripts.write(script + '\n')
-            scripts.write(div + '\n')
-        except KeyError:
-            pass
+    scripts = open('Bokeh/towersOfHanoi.txt', 'w')
+    #sortedIDs = sortDicts()
+    #for vid in sortedIDs:
+    #    try: # only get the scripts of the graphs with transcripts
+    script, div = withPeaks("SVQuLOiHJeE")
+    scripts.write(script + '\n')
+    scripts.write(div + '\n')
+        #except KeyError:
+        #    pass
     scripts.close()
     
 
@@ -75,7 +76,7 @@ def withPeaks(videoID):
         a.append(float(tup[0]))
         b.append(tup[1])  
 
-    output_file("peaks.html")
+    output_file("towersOfHanoi.html")
 
     hover = HoverTool(
         tooltips = [
@@ -126,12 +127,15 @@ def noPeaks(videoID):
     script, div = components(p)
     return script, div
 
-def lengthDistribution(videoID):
+def lengthDistribution(videoID, breakPt):
+    '''Creates a histogram of the distribution of lengths of breaks. 
+       Only plots the breaks with length less than breakPt (seconds)'''
     fiveWords=[wordfreq[videoID][i][0] for i in range(len(wordfreq[videoID])) if i <5]
     stringFiveWords=', '.join(fiveWords)
     lengths = [elt[1] for elt in lengthInfo[videoID]]
-
-    output_file('histogram.html')
+    filteredLen = [i for i in lengths if i<=breakPt]
+    keep = float(len(filteredLen))/len(lengths)
+    percent = float("%.2f" % keep)*100 # get percentage of points that we kept after filtering out the big values
     
     hover = HoverTool(
         tooltips = [
@@ -142,20 +146,46 @@ def lengthDistribution(videoID):
 
     p = figure(plot_width=400, plot_height=400,tools=TOOLS, name=stringFiveWords, 
     title_text_font_size='12pt',title=titles[videoID]['title'][21:], 
-    x_axis_label='x', y_axis_label='Length (s)',background_fill="#E8DDCB")
+    x_axis_label='Break Lengths (s)', y_axis_label='Count')
     
-    p.xaxis.axis_label_text_font_size='12pt'   
+    p.xaxis.axis_label_text_font_size='12pt'
+    p.yaxis.axis_label_text_font_size='12pt'    
 
-    hist, edges = np.histogram(lengths, density=True, bins=50)
+    hist, edges = np.histogram(filteredLen, bins=50)
     
-    p.quad(top=hist, bottom=0, left=edges[:-1], right=edges[1:],
-        fill_color="#036564", line_color="#033649",\
+    p.quad(top=hist, bottom=0, legend=str(percent)+'% below '+str(breakPt), left=edges[:-1], right=edges[1:],
+       line_color="#033649",\
     )
 
-    show(p)
+    #output_file('histogram.html')
+    #show(p)
+    script, div = components(p)
+    return script, div
     
-    
-makeScripts()
-#withPeaks("dEgc80Stfv8")
+def makeScriptsHist():
+    '''Creates a text file that contains all the scripts for the videos'''
+    scripts = open('Bokeh/breakLens.txt', 'w')
+    for vid in lengthInfo:
+        try: # only get the scripts of the graphs with transcripts
+            script, div = lengthDistribution(vid, 100)
+            script2, div2 = lengthDistribution(vid, 200)
+            script3, div3 = lengthDistribution(vid, 400)
+            scripts.write(script + '\n')
+            scripts.write(div + '\n')
+            scripts.write(script2 + '\n')
+            scripts.write(div2 + '\n')
+            scripts.write(script3 + '\n')
+            scripts.write(div3 + '\n')
+        except KeyError:
+            pass
+    scripts.close()
+
+#############
+## TESTING ## 
+#############
+ 
+#makeScripts()
+#withPeaks("SVQuLOiHJeE")
 #noPeaks("IRxsjPGh1oQ")
-#lengthDistribution("IRxsjPGh1oQ")
+#lengthDistribution("IRxsjPGh1oQ",600)
+makeScriptsHist()

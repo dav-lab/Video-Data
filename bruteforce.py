@@ -9,7 +9,7 @@ def getPeaksForOneVideo(videoID):
     '''Returns a list of peak points (tuples)
     :param videoID: videoID string'''
     peaks=[] 
-    json_data = open("FinishedCourseData/pauseBinsSmooth.json").read() 
+    json_data = open("FinishedCourseData/pausePlayBinsSmooth.json").read() 
     videoInfo = json.loads(json_data)
     viewsDict = videoInfo[videoID]
     d = OrderedDict(sorted(viewsDict.items(), key=lambda t: float(t[0]))) # the points of the peaks
@@ -27,7 +27,7 @@ def getPeaksForOneVideo(videoID):
     sortedPeaks=sorted(peaks, key=lambda i:i[1], reverse=True)
     return sortedPeaks[:5]
 
-#getPeaksForOneVideo('J1zJNuEFw2U')
+#print getPeaksForOneVideo("SVQuLOiHJeE")
 
 def getPeaks(filename):
     '''Returns a dictionary where keys are video IDs and values are a list of peak points (tuples)
@@ -47,8 +47,10 @@ def getPeaks(filename):
                         peaksList.append((x[pt],y[pt]))
             sortedPeaks=sorted(peaksList, key=lambda i:i[1], reverse=True)
         peaks[video]=sortedPeaks[:5]
-    with open('peaksGreaterThan025.json', 'w') as outfile:
+    with open('pausePlaySmoothPeaks.json', 'w') as outfile:
         json.dump(peaks, outfile)
+
+#getPeaks('FinishedCourseData/pausePlayBinsSmooth.json')
 
 def groupPeaksByWeek():
     '''Returns a dictionary where keys are week number and values are dictionaries where
@@ -67,5 +69,4 @@ def groupPeaksByWeek():
             pass
     return d
         
-getPeaks('FinishedCourseData/pausePlayBinsSmooth.json')
 #print getPeaksForOneVideo('qic9_yRWj5U')
