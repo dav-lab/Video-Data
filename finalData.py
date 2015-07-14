@@ -552,71 +552,100 @@ def analyzeUser(fileName, videoID):
         except (KeyError, ValueError, AttributeError, TypeError,IndexError):
             pass
     return eventList
-    
-def parseEvents(eventDict):
-    '''Groups together the event types in a dictionary.
-       :param eventDict: analyzeEvents.json is a dictionary where keys are event types
-       and values are number of times each event occurred'''
-    group = []
-    for (k,v) in eventDict.items():
-        if 'problem' in k:
-            group.append('problem')
-        elif 'Lecture' in k:
-            group.append('Lecture')
-        elif 'wiki' in k:
-            group.append('wiki')
-        elif 'discussion' in k:
-            group.append('discussion')
-        elif 'progress' in k:
-            group.append('progress')
-        elif k == 'seq_goto':
-            group.append('seq_goto')
-        elif k == 'seq_next':
-            group.append('seq_goto')
-        elif k == 'seq_prev':
-            group.append('seq_prev')
-        elif k == 'goto_position':
-            group.append('goto_position')    
-        elif k == 'page_close':
-            group.append('page_close')
-        elif k == 'accordian':
-            group.append('accordian')
-        else:
-            group.append('other')
-    d = collections.Counter(group)
-    return d
                  
 def userEventList(fileName):
     '''Returns a list of events, in chronilogical order, that the student did.
-       :param fileName: one of the student files in exam takers'''
+       :param fileName: one of the student files in examtakers'''
     filename=json.load(open(fileName))
     eventList = []
     for i in range(len(filename)):
         try:
-            d = json.loads(ast.literal_eval(filename[i]['event']))
-            userEvent = dict((k,v) for (k,v) in d.items())
-            if userEvent['code'] == videoID:
-                
-                if filename[i]['event_type']=='pause_video':
-                    if filename[i+1]['event_type'] not in ['play_video','pause_video']:
-                        nextEvent = filename[i+1]['event_type'] # get event_type of next event
-                        eventList.append(nextEvent)
-                            
-                if filename[i]['event_type']=='play_video':        
-                    if filename[i+1]['event_type'] not in ['play_video','pause_video']:
-                        nextEvent = filename[i+1]['event_type'] # get event_type of next event
-                        eventList.append(nextEvent)
-                    if filename[i-1]['event_type'] not in ['play_video','pause_video']:
-                        beforeEvent = filename[i-1]['event_type'] # get event_type of next event
-                        eventList.append(beforeEvent)
-                        
-        except (KeyError, ValueError, AttributeError, TypeError,IndexError):
+            e = filename[i]['event_type'] # the event type
+            if 'problem' in e:
+                eventList.append('problem')
+            elif 'Problem_Set' in e:
+                eventList.append('problem_set')
+            elif 'info' in e:
+                eventList.append('updates_and_news')
+            elif 'courseware' in e:
+                eventList.append('courseware')
+            elif 'Lecture' in e:
+                eventList.append('lecture')
+            elif 'wiki' in e:
+                eventList.append('wiki')
+            elif 'discussion' in e:
+                eventList.append('discussion')
+            elif 'progress' in e:
+                eventList.append('progress')
+            elif 'goto_position' in e:
+                eventList.append('navigation')
+            elif e in ['seq_goto','seq_next','seq_prev']:
+                eventList.append('navigation')    
+            elif e == 'page_close':
+                eventList.append('page_close')
+            elif e == 'accordian':
+                eventList.append('accordian')
+            elif e == 'play_video':
+                # find when in the video the play event occurred
+                # and add that time in a tuple to the eventList
+                d = json.loads(ast.literal_eval(filename[i]['event']))
+                videoDict=dict((k,v) for (k,v) in d.items())
+                try:
+                    etime = float(videoDict['currentTime'])
+                    if etime<0:
+                        raise ValueError
+                except (KeyError, TypeError, ValueError):
+                    if filename[i-1]['event_type']=='pause_video':
+                        etime=etime
+                    elif filename[i-1]['event_type']=='play_video':
+                        diff=datetime.datetime.utcfromtimestamp(filename[i+1]['timestamp']/1000.0)-datetime.datetime.utcfromtimestamp(filename[i]['timestamp']/1000.0)
+                        etime=diff.total_seconds() 
+                eventList.append(('play_video',etime))
+            elif e == 'pause_video':
+                eventList.append('pause_video')
+            else:
+                eventList.append('other')           
+        except (KeyError, ValueError, AttributeError, TypeError):
             pass
     return eventList
         
-
-
+def beforePlay(dirname, VIDEOID): #32 min 2:50
+    '''Creates a dictionary where keys are bins (this depends on the transcript of the given video)
+       and keys are lists of 5-tuples that show the 5 events before a play_video event.
+       :param dirname: examtakers is a folder with student files.'''
+    subs=requests.get('http://video.google.com/timedtext?lang=en&v='+VIDEOID).content
+    a=xmltodict.parse(subs)
+    listOfSubs=a['transcript']['text']
+    startTimes=[]
+    for i in listOfSubs:
+        startTimes.append(float(i['@start']))
+       
+    listFiles=os.listdir(dirname)
+    d={}
+    for s in listFiles: # loop through each student file
+        eventList = userEventList(dirname + '/' + s)
+        for e in eventList:
+             
+            if 'play_video' in e: 
+                toBin=startTimes[bisect.bisect(startTimes[1:],e[1])] # e[1] is the time the play event occurred
+                if toBin != 0.0:
+                    eindex = eventList.index(e)
+                    # get up to 5 previous events leading up to play event
+                    if eindex in [1,2,3,4,5]:
+                        previous = eventList[0:eindex]
+                    elif eindex > 5:
+                        previous = eventList[eindex-5:eindex]
+                    previous=[i[0] if type(i)==tuple else i for i in previous]
+                    if toBin not in d:
+                        d[toBin] = [previous]
+                    else:  
+                        d[toBin].append(previous)
+    with open('beforePlay_CJh-mscFZgU.json', 'w') as outfile:
+        json.dump(d, outfile)                                                                                    
+                                                                                                                                        
+                                                                                                                                                                                                                                  
+#TESTING
+                                
 #print analyzeUser('examtakers/_aziunojslooran.json','pGd3WqZK4Cg')
 #analyzeEvents('examtakers','CJh-mscFZgU')
-   
-#analyzeEvents('examtakers')      
+#print userEventList('examtakers/_aziunojslooran.json')    
