@@ -1,0 +1,1 @@
+What it essenti doe is it take the valu in A and sort them sort the valu in A and produc a histogram within bin that are even space across the rang defin by the minimum and maximum valu in A

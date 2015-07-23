@@ -1,0 +1,1 @@
+On the other hand if answer squar is bigger than x then I too high and I go to reduc the high down to the answer

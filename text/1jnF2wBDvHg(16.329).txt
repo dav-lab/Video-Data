@@ -1,0 +1,1 @@
+And we built a simpl littl graph with node label zero through five

@@ -1,0 +1,1 @@
+For exampl by build a tabl of input-output pair and use that to simul the behavior of that particular piec of code

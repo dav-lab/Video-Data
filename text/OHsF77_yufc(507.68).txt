@@ -1,0 +1,1 @@
+And you can go tri this if you want to take the code and actual run it to see how it explor in a depth first fashion graph such a the graph we start with

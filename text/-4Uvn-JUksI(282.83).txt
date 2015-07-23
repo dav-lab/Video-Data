@@ -1,0 +1,1 @@
+One is we go to look to see whether the thing we check for is le than the absolut valu of x

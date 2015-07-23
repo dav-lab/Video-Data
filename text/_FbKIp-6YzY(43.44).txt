@@ -1,0 +1,1 @@
+So suppos we have some optim problem express a the function f where we pas in an argument that ha some structur

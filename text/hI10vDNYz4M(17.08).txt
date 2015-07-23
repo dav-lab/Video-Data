@@ -1,0 +1,1 @@
+One realli use exampl of an algorithm is what often call a guess and check method where we iter through guess differ answer to a problem we tri to solv and then check to see if we got the right one

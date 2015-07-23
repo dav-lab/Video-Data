@@ -1,0 +1,1 @@
+A length tell me how mani object there are in the list so I know where the end of the list is and then a sequenc of fix size pointer to object

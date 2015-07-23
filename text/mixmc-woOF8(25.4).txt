@@ -1,0 +1,1 @@
+So a dictionari a general of a list but now the index the way to get to element of the dictionari do have to be integ

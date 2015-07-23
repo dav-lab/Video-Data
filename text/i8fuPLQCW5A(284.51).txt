@@ -1,0 +1,1 @@
+And then for a particular integ in that rang we go to look at the binari represent of that integ and whenev there a 1 bit we includ the correspond item into the combin that we build

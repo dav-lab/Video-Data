@@ -1,0 +1,1 @@
+And for each of those student it go to first figur out their averag grade

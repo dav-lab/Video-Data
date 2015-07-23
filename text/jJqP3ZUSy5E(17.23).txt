@@ -1,0 +1,1 @@
+So we go to use the idea of what often call an environ to understand how bind of variabl take place

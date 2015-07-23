@@ -1,0 +1,1 @@
+Focus on black box test where we exercis path through the specif and glass box test where we exercis path through the code

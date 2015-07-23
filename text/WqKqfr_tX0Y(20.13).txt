@@ -1,0 +1,1 @@
+So can I do better than O or linear search for search Well the answer is if I do know anyth about the valu of the element no

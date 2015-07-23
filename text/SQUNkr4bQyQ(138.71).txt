@@ -1,0 +1,1 @@
+So we want to maxim the product of the likelihood of the error

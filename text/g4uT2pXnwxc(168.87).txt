@@ -1,0 +1,1 @@
+And that program basic walk through those sequenc of instruct in order execut each one in turn

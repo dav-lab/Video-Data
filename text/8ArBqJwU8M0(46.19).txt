@@ -1,0 +1,1 @@
+We have a class of type Person and then this are the method and other attribut of the Person class a subclass of Person call MITPerson and here are it method and attribut a subclass of MITPerson call Student and final two subclass of Student call UG and Grad

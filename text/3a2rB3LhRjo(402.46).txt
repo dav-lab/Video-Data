@@ -1,0 +1,1 @@
+If all we go to do is support iter through that list ask for each element of the list in turn we can replac this rather ineffici list copi oper instead with a for loop that yield the student one by one

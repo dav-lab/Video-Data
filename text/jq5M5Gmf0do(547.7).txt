@@ -1,0 +1,1 @@
+Here is one exampl be abl to predict whether a piec of code will alway stop with an answer for ani input

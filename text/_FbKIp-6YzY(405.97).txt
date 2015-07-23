@@ -1,0 +1,1 @@
+And so what that suggest is that the number of call that we have to make in order to comput Fibonacci is order of this Golden Ratio which is about 1.6^n .

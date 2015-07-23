@@ -1,0 +1,1 @@
+And one can prove mathemat that if you consid all of the possibl tour of length n cube when n is the size of the maze then most of those tour are go to includ the end vertex

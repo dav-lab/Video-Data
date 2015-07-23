@@ -1,0 +1,1 @@
+The goal is to place in this case 8 queen on an 8 by 8 board such that none of the queen is attack each other

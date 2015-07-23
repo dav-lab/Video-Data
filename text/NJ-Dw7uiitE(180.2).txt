@@ -1,0 +1,1 @@
+So for exampl if x wa equal to 1 and say the string `` so that in this case a tupl then if I wrote f and execut that that would be the same a if I had call f with the argument 1 and `` And we can use these two languag featur to easili implement our cach of previously-comput answer

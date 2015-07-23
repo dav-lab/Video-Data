@@ -1,0 +1,1 @@
+We should be care though this is an inherit graph it not a subtyp graph i.e mortgag is a subtyp of object but not a subtyp of mortgag plot

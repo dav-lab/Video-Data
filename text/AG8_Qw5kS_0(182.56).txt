@@ -1,0 +1,1 @@
+And it follow indent with all of the definit of the attribut that I want to be part of the inset class

@@ -1,0 +1,1 @@
+Notic that if the mean is near 0 small chang in the mean lead to larg but not necessarili meaning chang in the coeffici of variat

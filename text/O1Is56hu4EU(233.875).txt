@@ -1,0 +1,1 @@
+I go to temporarili hold onto the valu at the ith locat of the list use temp right there So that I can take the thing at the minimum locat put it into i and then take a temporari thing and put it there

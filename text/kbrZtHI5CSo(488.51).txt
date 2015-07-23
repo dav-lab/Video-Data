@@ -1,0 +1,1 @@
+And we also includ a function to build a random list of item that have random valu and weight that vari from 1 to 5

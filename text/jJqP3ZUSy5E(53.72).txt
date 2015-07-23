@@ -1,0 +1,1 @@
+If we want to get the valu of a name invok that valu or that name rather just ask for the valu of that name simpli go to the tabl and look up the valu and return it

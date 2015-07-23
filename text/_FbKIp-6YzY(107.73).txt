@@ -1,0 +1,1 @@
+Another properti is that in do this sort of decomposit of the optim problem into sub-problem we may discov that the same sub-problem keep reoccur

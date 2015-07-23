@@ -1,0 +1,1 @@
+So it just go to loop over p look for a valu of p such that 2^p * x is a whole number

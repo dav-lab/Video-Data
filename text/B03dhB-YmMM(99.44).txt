@@ -1,0 +1,1 @@
+And it get the number to take it from self.numBucket

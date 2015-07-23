@@ -1,0 +1,1 @@
+We first go to prove that it true for n smallest valu which will typic be when n = 0 or n = 1

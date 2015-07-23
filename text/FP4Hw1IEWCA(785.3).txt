@@ -1,0 +1,1 @@
+If mu is equal to 0 and the varianc is equal to 1 we call that the unit normal or mayb the standard normal distribut

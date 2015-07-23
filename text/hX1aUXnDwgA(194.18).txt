@@ -1,0 +1,1 @@
+I go to set up initi a low and high valu which are to start with 0 and the valu of x

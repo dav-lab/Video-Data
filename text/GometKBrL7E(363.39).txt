@@ -1,0 +1,1 @@
+Final at the end of cours we choos to return the altern that ha the cheapest cost among the three

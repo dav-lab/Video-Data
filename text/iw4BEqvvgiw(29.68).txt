@@ -1,0 +1,1 @@
+In this case in particular if we want to search a list k time then the effici is n*log in order to do the sort plus k*log in order to do the search k time

@@ -1,0 +1,1 @@
+Another thing that nice is that the test is design without knowledg of the implement

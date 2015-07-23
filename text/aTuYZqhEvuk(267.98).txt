@@ -1,0 +1,1 @@
+And if I load it into an IDLE environ then I can certain say thing like give me the iter multipl of 3 and 5 and it doe the right thing

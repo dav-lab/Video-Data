@@ -1,0 +1,1 @@
+And the way that wa reduc to an algorithm and this is follow the exampl of Don Knuth and his tech layout languag is we simpli comput the number of space at the end of each line

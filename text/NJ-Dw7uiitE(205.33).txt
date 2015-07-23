@@ -1,0 +1,1 @@
+So you can see intern to memoiz there a definit of what I go to call a wrapper function becaus a you see in a moment it wrap the origin function definit f

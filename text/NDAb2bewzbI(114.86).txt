@@ -1,0 +1,1 @@
+So what we see is that the run time of the greedi algorithm is domin by the short time which is O log base 2 N
