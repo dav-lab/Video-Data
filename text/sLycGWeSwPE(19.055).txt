@@ -1,0 +1,1 @@
+In our veri simpl exampl a person will have a name and a birthday and we provid interfac method for get the last name of a person

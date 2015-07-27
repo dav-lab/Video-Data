@@ -1,0 +1,1 @@
+So for exampl if the first sequenc run out we assum that it pad with gap that match ani remain charact in the second sequenc

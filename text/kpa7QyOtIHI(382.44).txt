@@ -1,0 +1,1 @@
+So when I do that it set the frog found variabl to 80 and everyth els to it default valu

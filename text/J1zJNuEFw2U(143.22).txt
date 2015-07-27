@@ -1,0 +1,1 @@
+And in particular if the polynomi is just someth simpl like x^2 + k then the deriv is just 2x

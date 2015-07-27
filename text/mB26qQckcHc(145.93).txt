@@ -1,0 +1,1 @@
+They have the same mean for x and y in each the same varianc for x and y the same correl between x and y and moreov if we do a linear regress we see that we get the same curv for each of x and y a depict here

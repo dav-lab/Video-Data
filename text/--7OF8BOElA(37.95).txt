@@ -1,0 +1,1 @@
+So what I graph here is the amount of time it take for an algorithm and this is constant that ha 20 step versus a logarithm algorithm that ha onli 1 step within it loop

@@ -1,0 +1,1 @@
+Also to simplifi the plot I ignor the maximum and minimum distanc and onli plot the mean for each trial

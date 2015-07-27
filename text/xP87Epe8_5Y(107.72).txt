@@ -1,0 +1,1 @@
+This class is an exampl of what often call a mix-in class

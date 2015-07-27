@@ -1,0 +1,1 @@
+In the simpl case of have no weight where we simpli look for the shortest path in term of number of step we can stop a soon a we find a solut sinc it guarante to be a shortest path

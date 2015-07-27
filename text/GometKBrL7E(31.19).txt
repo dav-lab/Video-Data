@@ -1,0 +1,1 @@
+In this exampl we tri to find the minimum cost align between two sequenc so here are two exampl four element sequenc

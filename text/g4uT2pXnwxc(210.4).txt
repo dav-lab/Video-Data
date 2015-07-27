@@ -1,0 +1,1 @@
+And it got a control unit that keep track of where thing are and ask the ALU to do work

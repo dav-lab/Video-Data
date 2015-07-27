@@ -1,0 +1,1 @@
+The code down here first run clear and then clearSim so we now see in a singl plot the result of both way of comput the exponenti decay

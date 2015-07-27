@@ -1,0 +1,1 @@
+It say given a list L and an element e I go to walk through the list

@@ -1,0 +1,1 @@
+And then we move the marker up one start our check point at the next one and again scan down the list find the smallest thing we seen so far which eventu we find there

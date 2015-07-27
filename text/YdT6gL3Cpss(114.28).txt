@@ -1,0 +1,1 @@
+So I modifi the code a littl bit to print out the valu for a b and c for the parabol fit

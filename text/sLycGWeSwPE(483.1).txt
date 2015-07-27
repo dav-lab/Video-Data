@@ -1,0 +1,1 @@
+So if you want to know what all the special method are that you can implement and tap into all sort of great behavior that Python ha built-in look at section 3.4 the Python Languag Refer manual

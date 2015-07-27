@@ -1,0 +1,1 @@
+For exampl this queri that you see here select the price of a given stock that ha a set of properti from the symbol GM and with a certain date

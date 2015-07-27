@@ -1,0 +1,1 @@
+And now that I got that I could just divid by 8 which is equival to shift the binari point if you like three slot over to get 0.011

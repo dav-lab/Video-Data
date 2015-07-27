@@ -1,0 +1,1 @@
+I go to reduc a Mul b into a plus a Mul b minus 1

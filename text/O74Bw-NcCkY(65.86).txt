@@ -1,0 +1,1 @@
+Now we can see where the real impact come in becaus given now two sort list again the merg say look at these two list check the first element of each to decid which is smallest and put it at the front of the list follow by the next smallest element follow by the next smallest element follow by the next smallest element

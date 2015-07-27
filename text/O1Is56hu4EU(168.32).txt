@@ -1,0 +1,1 @@
+And then we go to take the remaind of the list find the smallest element of that and swap it with the second element

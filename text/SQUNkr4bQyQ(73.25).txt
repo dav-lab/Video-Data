@@ -1,0 +1,1 @@
+And the likelihood get bigger the smaller the error is

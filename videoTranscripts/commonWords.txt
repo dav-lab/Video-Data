@@ -3,7 +3,6 @@ univs
 they're
 those
 here
-so
 the
 be
 to
@@ -167,7 +166,7 @@ _
 -
 \
 ~
-so
+
 going
 here
 those
@@ -183,3 +182,5 @@ uh
 wow
 ug
 duh
+your
+second

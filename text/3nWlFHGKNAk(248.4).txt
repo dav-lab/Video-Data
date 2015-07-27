@@ -1,0 +1,1 @@
+If we add a weight or a cost to each edg then we say the graph is a weight graph and that say I can solv other kind of problem

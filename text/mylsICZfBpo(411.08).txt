@@ -1,0 +1,1 @@
+So it turn out that there is a nice easi way to fix this code

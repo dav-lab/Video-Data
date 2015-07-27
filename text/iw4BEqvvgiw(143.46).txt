@@ -1,0 +1,1 @@
+And the idea of a hash function is it go to map a larg space of input to a much smaller space of output

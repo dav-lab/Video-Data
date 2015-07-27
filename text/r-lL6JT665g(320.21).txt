@@ -1,0 +1,1 @@
+And then rollN which mere call rollDi n time and return the result of the number return a a string

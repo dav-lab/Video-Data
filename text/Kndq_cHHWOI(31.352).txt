@@ -1,0 +1,1 @@
+And we say a data structur a data type is a first class object if it ha the follow characterist it ha a type it can be an element in a data structur like a list it can appear in an express like an assign statement could be on the right-hand side of the assign statement and it can be an argument to a function

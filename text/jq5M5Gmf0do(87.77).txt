@@ -1,0 +1,1 @@
+It perform some calcul and it rememb result so that it can reus them

@@ -1,0 +1,1 @@
+Then move what left stack of size one on to the target locat

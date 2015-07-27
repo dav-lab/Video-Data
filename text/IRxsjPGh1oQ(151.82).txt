@@ -1,0 +1,1 @@
+Well Newton-Raphson say that given a guess g for the root a better guess is just shown right here is g - g^2 - k all divid by 2g

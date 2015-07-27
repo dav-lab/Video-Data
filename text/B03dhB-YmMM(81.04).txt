@@ -1,0 +1,1 @@
+It take the number of bucket a an argument and then creat an empti dictionari and then go through and add to each dictionari a bucket which is initi to be the empti list

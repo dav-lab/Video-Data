@@ -1,0 +1,1 @@
+If I go to my Python shell and I type in name = , and then I go to use raw_input which is a Python special function it take a argument a prompt

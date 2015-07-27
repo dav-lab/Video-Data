@@ -1,0 +1,1 @@
+The class intDict us a simpl hash function the same we look at befor modulus to implement a dictionari with integ a key

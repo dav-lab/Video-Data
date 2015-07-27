@@ -1,0 +1,1 @@
+And then final I written a littl predic which allow me to detect whether an object is a student or not

@@ -1,0 +1,1 @@
+To remind you a stochast process is ani process where the next state might depend on both the previous state and some random element

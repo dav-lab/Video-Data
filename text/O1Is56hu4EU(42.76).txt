@@ -1,0 +1,1 @@
+So then what we realli ask is if we sort and search we want to know is the cost of both sort and binari search which is great is that le than just do straightforward linear search In other word is it better to sort and search or should we just stick with the linear search Well if we do know anyth more unfortun the answer is it ca be better

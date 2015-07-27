@@ -1,0 +1,1 @@
+Sinc there are no more path of length 2 off of node 1 we carri on and look at 023 and then 024

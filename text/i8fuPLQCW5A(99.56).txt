@@ -1,0 +1,1 @@
+So again we sum over all the item of t_i * w_i is le than the maximum weight the backpack can hold

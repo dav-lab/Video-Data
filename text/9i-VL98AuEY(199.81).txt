@@ -1,0 +1,1 @@
+So from one node there might be 2 or 3 possibl edg that tell me differ way I could slide a tile to get to a new state of the puzzl

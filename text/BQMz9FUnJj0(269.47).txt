@@ -1,0 +1,1 @@
+So I get the number associ with that spot in the string and that go to be the label I go to put into blank

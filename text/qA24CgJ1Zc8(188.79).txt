@@ -1,0 +1,1 @@
+As we just saw we can retriev the valu associ with the name by simpli invok the name just ask for what is the valu pi or pi

@@ -1,0 +1,1 @@
+This function will save whatev the current figur is in this case figur two into a file name in this case Figure-Eric.png

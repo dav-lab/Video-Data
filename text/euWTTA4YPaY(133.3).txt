@@ -1,0 +1,1 @@
+When we expos a bug a runtim bug that is someth that occur dure the run of the code a oppos to a static semant or a syntax error one of the dimens along which the bug can vari is the differ between an overt and covert bug

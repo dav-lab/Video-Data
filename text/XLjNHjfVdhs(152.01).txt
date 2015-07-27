@@ -1,0 +1,1 @@
+And we go to basic refer the grade dictionari use the student ID number a a key and we append the grade that were do to the end of the grade list for that student

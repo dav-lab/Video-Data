@@ -1,0 +1,1 @@
+A key can then be ad to a figur by execut the function pylab dot legend open close a we will see veri soon

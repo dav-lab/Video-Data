@@ -1,0 +1,1 @@
+Realli what we talk about here are upper bound on the complex of the algorithm on the number of step

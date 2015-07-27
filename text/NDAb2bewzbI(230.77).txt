@@ -1,0 +1,1 @@
+Suppos we were abl to do each of the 300 some odd oper that requir in a microsecond a millionth of a second then we talk a total time which is somewher on the order of 300 microsecond

@@ -1,0 +1,1 @@
+Start with guess and check method the guess and answer check it and then use the result to improv the guess

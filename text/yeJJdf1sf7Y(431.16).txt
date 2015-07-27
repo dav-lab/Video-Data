@@ -1,0 +1,1 @@
+And for each charact in the string I go to convert it into an integ and add it into what I got in val in order to return that overal valu

@@ -1,0 +1,1 @@
+Well if g^2 is bigger than x then we know that it too big

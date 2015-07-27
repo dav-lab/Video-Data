@@ -1,0 +1,1 @@
+I remind you a polynomi p is some sequenc of coeffici and power so it a_n * x to the n-th power + a_n - 1 * x to the n minus first power and so on

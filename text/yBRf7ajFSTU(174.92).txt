@@ -1,0 +1,1 @@
+So what I want to do I go to start by let comment this guy back out again and look at that fitData2 which is just like fitData1 except what I done is that when I go to use the model for predict I go to ask it to predict the extens creat by appli heavier weight

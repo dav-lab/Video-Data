@@ -1,0 +1,1 @@
+The idea is that we want to wrap up that comput that set of mechan step that recip within a particular scope so that we can treat that function that comput a if it were a primit

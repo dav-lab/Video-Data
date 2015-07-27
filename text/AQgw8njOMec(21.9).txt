@@ -1,0 +1,1 @@
+In the case where we deal with integ we could get away with this becaus we could simpli generat all the possibl guess there onli a finit number of them and check them to see which one wa the right answer or whether there wa no answer if we basic went through all of them

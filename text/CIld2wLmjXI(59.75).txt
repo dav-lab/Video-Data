@@ -1,0 +1,1 @@
+And what this mean is that the name is defin at the outermost scope of the program rather than the scope of the function within which it appear

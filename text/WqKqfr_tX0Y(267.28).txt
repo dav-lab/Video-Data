@@ -1,0 +1,1 @@
+It say basic given a list an element and a low and a high point in that list a low index and a high index what am I go to do If high is equal to low it say I got a list of length 1

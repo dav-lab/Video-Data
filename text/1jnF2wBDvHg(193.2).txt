@@ -1,0 +1,1 @@
+If I get to the node in a path which ha no child then I just go on to the next path

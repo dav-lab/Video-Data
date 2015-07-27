@@ -1,0 +1,1 @@
+I go to use the multipl inherit mechan of Python to take mortgag and chang it so that it not onli incorpor object but also incorpor the class we just look at mortgag plot

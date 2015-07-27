@@ -1,0 +1,1 @@
+We have a simpl littl helper function that creat a list of all the item in the hous the clock the paint the radio the vase the book and the comput along with their associ weight and valu

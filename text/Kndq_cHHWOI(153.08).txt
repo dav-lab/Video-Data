@@ -1,0 +1,1 @@
+And what I want applyToEach to do is to walk through the list mutat each element in turn by replac it by what happen when we call the function f on that element
