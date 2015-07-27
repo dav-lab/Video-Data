@@ -11,8 +11,8 @@ import numpy
 from math import floor, ceil
 from collections import Counter
 import math
-import sklearn
-from sklearn import preprocessing
+#import sklearn
+#from sklearn import preprocessing
 import pylab
 
 
@@ -567,7 +567,84 @@ def getSmoothPoints(filename):
     with open('FinishedCourseData/pauseBinsSmooth.json', 'w') as outfile:
         json.dump(d, outfile) 
 
-getSmoothPoints("FinishedCourseData/pauseBins.json")
+#getSmoothPoints("FinishedCourseData/pauseBins.json")
+
+def addTotalTime(dirname):
+    '''Creates a json file of a dictionary where the keys are user IDs and the values
+    are dictionaries with the amount of time watched in seconds for each video.
+    :param dirname: rewatches is a folder with student files which contain rewatch view counts.'''
+    time={}
+    listFiles=os.listdir(dirname)
+    for i in listFiles:
+        oneFile=json.load(open(dirname+'/'+i))
+        secs={}
+        for key in oneFile:
+            total=sum([k[1]-k[0] for k in oneFile[key]])
+            secs[key]=total 
+        time[i]=secs
+    with open('Video-Data/aggregatedTime.json', 'w') as outfile:
+        json.dump(time, outfile)
+
+def countPauseLength(filename):
+    '''Creates a dictionary where keys are video IDs and values are pause length lists.
+       :param filename: one of the student files in examtakers.'''
+    d={}
+    events=generateVideoDict(filename)
+    for vid in events:
+        oneVid=[] # list of when pauses occur
+        for i in range(len(events[vid])):
+            try:
+                if (events[vid][i][0] == 'pause_video' and events[vid][i+1][0] == 'play_video') or (events[vid][i][0] == 'pause_video' and events[vid][i+1][0] == 'pause_video'):
+                    time = (events[vid][i+1][1]-events[vid][i][1]).seconds # current time in video
+                    if time<=100:
+                        oneVid.append(time)
+            except IndexError:
+                pass
+        total=sum(oneVid)
+        if total!=0:
+            d[vid]=total
+    return d
 
 
+def countPauseLengthAll(dirName):
+    breakD={}
+    listFiles=os.listdir(dirName)
+    for i in listFiles:
+        d=countPauseLength(dirName+'/'+i)
+        breakD[i]=d
+    with open('Video-Data/aggregatedPauseLength.json', 'w') as outfile:
+        json.dump(breakD, outfile)
 
+def videoEngagement():
+    plays=json.loads(open('Video-Data/aggregatedTime.json').read())
+    pauses=json.loads(open('Video-Data/aggregatedPauseLength.json').read())
+    lens=json.loads(open('Video-Data/FinishedCourseData/lengthsAndViews.json').read())
+    counterPlays={user:Counter(plays[user]) for user in plays}
+    counterPauses={k:Counter(pauses[k]) for k in pauses}
+    total={}
+    for user in counterPlays:
+        total[user]=counterPlays[user]+counterPauses[user]
+    for key in total:
+        for vid in total[key]:
+            try:
+                total[key][vid]=total[key][vid]/lens[vid]['length']
+            except KeyError:
+                 total[key][vid]='Not Available'
+    with open('Video-Data/aggregatedVideoEngagement.json', 'w') as outfile:
+        json.dump(total, outfile)
+
+def averageVideoEngagement():
+    vE=json.loads(open('Video-Data/aggregatedVideoEngagement.json').read())
+    sums={}
+    for user in vE:
+        for vid in vE[user]:
+            if vE[user][vid]!='Not Available':
+                if vid not in sums:
+                    sums[vid]={'sum': vE[user][vid],'count':1}
+                else:
+                    sums[vid]['sum']+=vE[user][vid]
+                    sums[vid]['count']+=1
+    average={k:float(sums[k]['sum'])/float(sums[k]['count']) for k in sums}
+    with open('Video-Data/averageVideoEngagement.json', 'w') as outfile:
+        json.dump(average, outfile)
+    
