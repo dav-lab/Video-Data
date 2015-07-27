@@ -9,7 +9,7 @@ import csv
 
 APIKEY='API'
 
-listOfFileNames=os.listdir('examtakers')
+#listOfFileNames=os.listdir('examtakers')
 
 def videos(listFileName):
     '''Creates a dictionary of dictionaries where the keys are video IDs and values are url and title'''
@@ -82,3 +82,59 @@ def videoTitles(videoInfo):
         
 #videoTitles('videos.json')
 #print csvToDict('weekly_videos.csv')
+
+def newVideoTitles(videoInfo):
+    '''Creates a dictionary of dictionaries where the keys are titles and 
+    values are list of video IDs, week, length, video link, description, transcript link. 
+    :param listFileName: directory with a json file for every student that details their actions/events'''
+    # create a dictionary of dictionaries where the keys are titles and values are a list of video IDs
+    filename=json.load(open(videoInfo))
+    counts=json.load(open('FinishedCourseData/lengthsAndViews.json')) 
+    code={}
+    weekInfo=csvToDict('weekly_videos.csv')
+    for videoID in filename:
+        title= filename[videoID]['title'].lower()
+        titleSegment = filename[videoID]['title'][21:]
+        if title not in code:
+            code[title]= {"ID":[videoID]}
+        else:
+            code[title]['ID'].append(videoID)            
+    with open('newVideoTitles.json', 'w') as outfile:
+        json.dump(code, outfile)
+
+
+def getLength(fileName):
+    f=json.load(open(fileName))
+    length=json.load(open('FinishedCourseData/lengthsAndViews.json'))
+    d={}
+    for key in f:
+        count=0
+        l=0
+        for i in f[key]['ID']:
+            try:
+                if length[i]['counts']>l:
+                    count=length[i]['counts']
+                    l=length[i]['length']
+            except KeyError:
+                pass
+        d[i]=l
+    with open('lengthWithHighestViewCount.json', 'w') as outfile:
+        json.dump(d, outfile)
+
+
+def titleToTitle():
+    d={}
+    titles=json.load(open('newVideoTitles.json'))
+    length=json.load(open('lengthWithHighestViewCount.json'))
+    for t in titles:
+        for vidId in titles[t]['ID']:
+            if vidId in length:
+                d[vidId]=length[vidId]
+                k=vidId
+        for vid in titles[t]['ID']:
+            if vid not in d:
+                d[vid]=k
+    with open('newVideoTitles2.json', 'w') as outfile:
+        json.dump(d, outfile)
+        
+                

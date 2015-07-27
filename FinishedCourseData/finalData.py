@@ -572,7 +572,9 @@ def getSmoothPoints(filename):
 def addTotalTime(dirname):
     '''Creates a json file of a dictionary where the keys are user IDs and the values
     are dictionaries with the amount of time watched in seconds for each video.
-    :param dirname: rewatches is a folder with student files which contain rewatch view counts.'''
+    :param dirname: newData is a folder with student files which contain rewatch view counts.'''
+    length=json.loads(open('Video-Data/lengthWithHighestViewCount.json').read())
+    groups=json.loads(open('Video-Data/newVideoTitles2.json').read())
     time={}
     listFiles=os.listdir(dirname)
     for i in listFiles:
@@ -580,7 +582,14 @@ def addTotalTime(dirname):
         secs={}
         for key in oneFile:
             total=sum([k[1]-k[0] for k in oneFile[key]])
-            secs[key]=total 
+            if key in length:
+                secs[key]=total 
+            else:
+                k=groups[key]
+                if k in secs:
+                    secs[k]+=total
+                else:
+                    secs[k]=total
         time[i]=secs
     with open('Video-Data/aggregatedTime.json', 'w') as outfile:
         json.dump(time, outfile)
@@ -588,10 +597,12 @@ def addTotalTime(dirname):
 def countPauseLength(filename):
     '''Creates a dictionary where keys are video IDs and values are pause length lists.
        :param filename: one of the student files in examtakers.'''
+    length=json.loads(open('Video-Data/lengthWithHighestViewCount.json').read())
+    groups=json.loads(open('Video-Data/newVideoTitles2.json').read())
     d={}
     events=generateVideoDict(filename)
     for vid in events:
-        oneVid=[] # list of when pauses occur
+        oneVid=[]
         for i in range(len(events[vid])):
             try:
                 if (events[vid][i][0] == 'pause_video' and events[vid][i+1][0] == 'play_video') or (events[vid][i][0] == 'pause_video' and events[vid][i+1][0] == 'pause_video'):
@@ -602,11 +613,19 @@ def countPauseLength(filename):
                 pass
         total=sum(oneVid)
         if total!=0:
-            d[vid]=total
+            if vid in length:
+                d[vid]=total
+            else:
+                k=groups[vid]
+                if k in d:
+                    d[k]+=total
+                else:
+                    d[k]=total
     return d
 
 
 def countPauseLengthAll(dirName):
+    ''':param dirName: examtakers'''
     breakD={}
     listFiles=os.listdir(dirName)
     for i in listFiles:
