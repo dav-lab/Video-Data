@@ -4,13 +4,14 @@
 
 from bokeh.plotting import figure, output_file, show
 from bokeh.embed import components # generates individual component
-from bokeh.models import HoverTool
+from bokeh.models import HoverTool, axes
 from bruteforce import getPeaksForOneVideo
 import json
 import numpy
 import pylab
 import numpy as np
 from bokeh.charts import BoxPlot, output_file, show
+from bokeh.charts import Bar, output_file, show
 
 
 
@@ -19,7 +20,8 @@ videoInfo2 = json.loads(open("FinishedCourseData/pausePlayBins.json").read()) # 
 wordfreq = json.loads(open("videoTranscripts/transcriptsWordFrequency.json").read())
 titles = json.loads(open("videoTranscripts/videos.json").read())
 lengthInfo = json.loads(open("FinishedCourseData/pausePlay.json").read()) # distribution of lengths
-
+vidEngage = json.loads(open("averageVideoEngagement.json").read()) # distribution of lengths
+vidEngageUsers = json.loads(open("aggregatedVideoEngagement.json").read()) # distribution of lengths
 
 def sortDicts():
     '''Returns a list of sorted IDs, greatest break count to smallest break count'''
@@ -200,12 +202,13 @@ def allLengthDistribution(startPt,breakPt):
     return script, div
 
     
+            
 def makeScriptsHist():
     '''Creates a text file that contains all the scripts for the videos'''
-    scripts = open('Bokeh/tes.txt', 'w')
+    scripts = open('Bokeh/test.txt', 'w')
     #for vid in lengthInfo:
        # try: # only get the scripts of the graphs with transcripts
-    script, div = lengthDistribution("SVQuLOiHJeE", 100)
+    script, div = vidEngageDistributionOneUser("icmehhllem.json")
             #script2, div2 = lengthDistribution(vid, 200)
             #script3, div3 = lengthDistribution(vid, 400)
     scripts.write(script + '\n')
@@ -218,6 +221,69 @@ def makeScriptsHist():
       #      pass
     scripts.close()
 
+def averageBreakLen():
+    allNum=0
+    lengthOfLength=0
+    lengthOfFilter=0
+    for vid in lengthInfo:
+        length=[i[1] for i in lengthInfo[vid]]
+        filteredLen=[i for i in length if i<=100]
+        lengthOfLength+=len(length)
+        lengthOfFilter+=len(filteredLen)
+        allNum+=sum(filteredLen)/float(len(filteredLen))
+    average=allNum/len(lengthInfo.keys())
+    return average, float(lengthOfFilter)/lengthOfLength
+    
+def vidEngageDistribution():
+    '''Creates a histogram of the distribution of video engagement'''
+    lengths =sorted(vidEngage.values(), reverse=True)[:10]
+    t=sorted(vidEngage, key=vidEngage.get,reverse=True)[:10]
+    print t
+    actualTitles=[titles[i]['title'][21:].replace('_',' ') for i in t]
+        
+    hover = HoverTool(
+        tooltips = [
+            ("(x,y)", "($x, $y)"),
+        ])
+    
+    TOOLS = ['resize, save, pan, box_zoom, wheel_zoom',hover]
+    output_file("h.html")
+    bar = Bar(lengths, actualTitles, title="Overall Distribution of Video Engagement",width=800,height=800,ylabel='Video Engagement Factor')
+    show(bar)
+ 
+
+def vidEngageDistributionOneUser(userID):
+    lengths =sorted(vidEngageUsers[userID].values(), reverse=True)[:30]
+    t=sorted(vidEngageUsers[userID], key=vidEngageUsers[userID].get,reverse=True)[:30]
+    actualTitles=[titles[i]['title'][21:].replace('_',' ') for i in t][:30]
+    
+        
+    hover = HoverTool(
+        tooltips = [
+            ("(x,y)", "($x, $y)"),
+        ])
+    
+    TOOLS = ['resize, save, pan, box_zoom, wheel_zoom',hover]
+    output_file("h.html")
+    bar = Bar(lengths, actualTitles, title="Distribution of Video Engagement",width=1000,height=1000, ylabel='Video Engagement Factor')
+    show(bar)    
+
+def vidEngageDistributionOneVideo(videoID):
+    factor=sorted([vidEngageUsers[user][i] for user in vidEngageUsers for i in vidEngageUsers[user] if i==videoID][:30], reverse=True)
+    print factor
+    userNames=[i[0] for i in sorted([(u.replace('.json',''),vidEngageUsers[u][j]) for u in vidEngageUsers for j in vidEngageUsers[u] if j==videoID][:30],key=lambda x: x[1],reverse=True)]
+    hover = HoverTool(
+        tooltips = [
+            ("(x,y)", "($x, $y)"),
+        ])
+    
+    TOOLS = ['resize, save, pan, box_zoom, wheel_zoom',hover]
+    output_file("h.html")
+    bar = Bar(factor, userNames, title="Distribution of Video Engagement for ",width=1000,height=1000, ylabel='Video Engagement Factor')
+    show(bar)    
+            
+    #script, div = components(bar)
+    #return script, div 
 #############
 ## TESTING ## 
 #############
@@ -228,5 +294,6 @@ def makeScriptsHist():
 #lengthDistribution("IRxsjPGh1oQ",600)
 #makeScriptsHist()
 
+#vidEngageDistributionOneUser("icmehhllem.json")
+vidEngageDistributionOneVideo('CsQrTLde-dM')
 
-makeScriptsHist()

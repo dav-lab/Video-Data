@@ -108,16 +108,19 @@ def getLength(fileName):
     length=json.load(open('FinishedCourseData/lengthsAndViews.json'))
     d={}
     for key in f:
-        count=0
         l=0
+        c=-1
+        rightId=''
         for i in f[key]['ID']:
             try:
-                if length[i]['counts']>l:
-                    count=length[i]['counts']
+                if int(length[i]['counts'])>c:
                     l=length[i]['length']
+                    c=int(length[i]['counts'])
+                    rightId=i
             except KeyError:
                 pass
-        d[i]=l
+        if rightId!='':
+            d[rightId]=l
     with open('lengthWithHighestViewCount.json', 'w') as outfile:
         json.dump(d, outfile)
 
