@@ -1,1 +1,0 @@
-Rememb the first step wa to sort the item in order of their metric so in metric order

@@ -1,1 +1,0 @@
-And I extend that path by one step go to each of the possibl child of the current node

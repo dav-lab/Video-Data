@@ -1,1 +1,0 @@
-But in an interpret languag there a special program that convert that sourc code to an intern data structur and then sequenti convert each step into a low machin instruct and execut

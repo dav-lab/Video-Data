@@ -1,1 +1,0 @@
-So recurs I would say if I can get n minus 1 factori then to get n factori I simpli take that valu and multipli it by n

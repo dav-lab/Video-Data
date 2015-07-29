@@ -1,1 +1,0 @@
-There are some problem for which find subgraph or subsect of a graph can be import especi subgraph that are complet

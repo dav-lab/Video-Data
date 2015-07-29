@@ -1,1 +1,0 @@
-The figur creat by the first line of code follow the import here it is pylab.figur

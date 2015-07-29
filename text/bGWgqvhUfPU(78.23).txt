@@ -1,1 +1,0 @@
-To merg I just go to look at the first element of each list and take the smaller one and move it to the end of the result and keep do that until one of the list is empti in which case I just copi the rest of the list onto the end of the result

@@ -1,1 +1,0 @@
-As long a the test is True we execut that same set of instruct in the bodi over and over and over until final the test is Fals in which case we skip around the loop bodi and pick up the comput elsewher

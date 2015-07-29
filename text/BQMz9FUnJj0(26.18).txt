@@ -1,1 +1,0 @@
-So we might start off just with a goal node and a start node

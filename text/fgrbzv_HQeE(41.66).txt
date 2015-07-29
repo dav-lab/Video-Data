@@ -1,1 +1,0 @@
-Turn out that for depth first search the algorithm we shown you is quit easi to modifi

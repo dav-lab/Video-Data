@@ -1,1 +1,0 @@
-If I have a loop a for loop I want to have test where the loop not enter where the bodi of the loop is execut exact onc or the bodi of the loop is execut more than onc

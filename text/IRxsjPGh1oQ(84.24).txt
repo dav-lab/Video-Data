@@ -1,1 +1,0 @@
-Make sens if we combin the valu of x such that x^2 - 24 is equal to 0 we done becaus that the thing we want

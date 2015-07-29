@@ -1,1 +1,0 @@
-So let look at a hash function that doe that

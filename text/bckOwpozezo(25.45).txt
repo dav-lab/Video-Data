@@ -1,1 +1,0 @@
-Compar how we choos to structur the subproblem for the layout problem versus how we did it for the 0/ 1 knapsack problem

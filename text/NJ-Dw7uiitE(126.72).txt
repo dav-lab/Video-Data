@@ -1,1 +1,0 @@
-If we defin a function definit and we use this interest syntax where we put a littl star befor the name of an argument that will bind that particular argument to a tupl of the argument to the call

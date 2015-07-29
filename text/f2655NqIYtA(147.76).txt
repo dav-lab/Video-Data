@@ -1,1 +1,0 @@
-From each differ piec I select one input and then I run the test suit on that to see how well it doe

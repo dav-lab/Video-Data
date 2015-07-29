@@ -1,1 +1,0 @@
-Complet mean that for everi node in that subgraph it ha an edg to everi other node in that subgraph

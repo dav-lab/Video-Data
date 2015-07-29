@@ -1,1 +1,0 @@
-In a discret model the valu of the pertin variabl are enumer for exampl the integ wherea in a continu model they not enumer for exampl the real number

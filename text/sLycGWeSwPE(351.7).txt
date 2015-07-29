@@ -1,1 +1,0 @@
-And then if I ask for the list again you can see that in fact the list now is sort in order of their last name

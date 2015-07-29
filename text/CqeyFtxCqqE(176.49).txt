@@ -1,1 +1,0 @@
-For exampl we could store the compon of a list in a littl sequenti array of memori locat each of which hold a pointer to an object and associ with that array a particular length l of the list

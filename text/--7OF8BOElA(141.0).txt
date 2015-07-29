@@ -1,1 +1,0 @@
-And a a consequ what this say is that while log n may grow slowli when it multipli by linear factor the growth is much more than just the pure linear but they still quit valuabl becaus the growth is get bad out of hand

@@ -1,1 +1,0 @@
-Well thing like int float string and tupl are immut

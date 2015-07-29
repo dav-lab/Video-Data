@@ -1,1 +1,0 @@
-A veri simpl function it take a string a an argument initi the string call number to the empti string then for everi charact in s it take the ordin valu of that charact

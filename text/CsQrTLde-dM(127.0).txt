@@ -1,1 +1,0 @@
-What I like to know though is if I again a befor if I set up x to have some valu like 5 and I set n to be some valu of 1 and I now call twoPow of 2 to the 8th I should still get I sorri

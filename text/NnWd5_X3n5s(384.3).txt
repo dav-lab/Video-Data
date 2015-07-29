@@ -1,1 +1,0 @@
-Each recurs call of a function creat it own environ with a local scope of variabl

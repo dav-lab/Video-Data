@@ -1,1 +1,0 @@
-When the valu is le than or equal to zero the loop go to termin and insid of it the valu decreas everi time through the loop

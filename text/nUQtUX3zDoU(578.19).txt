@@ -1,1 +1,0 @@
-A Mont Carlo simul is a method of estim the valu of an unknown quantiti use the principl of inferenti statist The key word here are estim we will not typic be abl to get exact the right answer use the Mont Carlo simul and inferenti

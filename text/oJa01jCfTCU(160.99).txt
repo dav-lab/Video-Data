@@ -1,1 +1,0 @@
-So we can take a number convert it to a string and concaten that togeth give u the string a123

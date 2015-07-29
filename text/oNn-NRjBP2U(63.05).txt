@@ -1,1 +1,0 @@
-It simpli take the object that I pass in and it ask if it an instanc of an undergradu or an instanc of a graduat student

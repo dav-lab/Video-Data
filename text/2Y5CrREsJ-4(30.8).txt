@@ -1,1 +1,0 @@
-Program languag is go to defin both the syntax and semant that we need to translat our comput idea into mechan step

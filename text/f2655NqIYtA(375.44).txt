@@ -1,1 +1,0 @@
-The second one is go to use heurist base on explor path through the code itself

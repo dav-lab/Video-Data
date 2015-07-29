@@ -1,1 +1,0 @@
-We go to then use inherit to build an MIT Person class that will inherit all of the Person properti and in addit provid for this new capabl

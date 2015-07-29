@@ -1,1 +1,0 @@
-Suppos we want to find the minimum airfar from Boston to San Francisco on a Monday or Tuesday

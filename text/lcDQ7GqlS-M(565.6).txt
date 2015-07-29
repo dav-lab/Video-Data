@@ -1,1 +1,0 @@
-And so here we can see that we calcul the sum of the squar of the estim error and then down here we first comput the mean of the observ valu and then we comput the differ between the mean and the measur valu and the sum of that squar

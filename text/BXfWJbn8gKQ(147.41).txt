@@ -1,1 +1,0 @@
-We have testGreedi whose job it is simpli to run the greedi algorithm onc use the specifi metric and to print out the total number of item and their valu in the knapsack that get built use that particular metric

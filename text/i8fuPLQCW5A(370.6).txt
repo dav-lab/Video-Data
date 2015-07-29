@@ -1,1 +1,0 @@
-Here the Python code that implement the exhaust search that will find the best combin of item for the burglar to choos

@@ -1,1 +1,0 @@
-Our goal in this problem is to find the optim layout of word in a paragraph so a to make the result look the most pleas

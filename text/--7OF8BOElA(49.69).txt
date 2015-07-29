@@ -1,1 +1,0 @@
-And notic it take an argument of size almost 1,000,000 befor the logarithm algorithm actual catch up to the constant one

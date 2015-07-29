@@ -1,1 +1,0 @@
-The first procedur here getData it job is to read the data in from a text file where we enter the data

@@ -1,1 +1,0 @@
-We move the marker along the thing that we go to check along and we keep scan until we find the smallest element of the list which is right there

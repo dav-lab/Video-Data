@@ -1,1 +1,0 @@
-And if we hash Eric into a tabl of size 7 we get an index of 2

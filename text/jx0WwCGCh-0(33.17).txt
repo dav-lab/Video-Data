@@ -1,1 +1,0 @@
-The differ here is we go to use these squar bracket rather than the parenthesi to distinguish a list or to creat a list a oppos to a tupl

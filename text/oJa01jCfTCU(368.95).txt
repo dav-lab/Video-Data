@@ -1,1 +1,0 @@
-So we have a string call s then this express here where we have two express a start and an end that are both integ or their valu are integ that denot the substr that start at the index point to by start and stop just befor the index point to by end

@@ -1,1 +1,0 @@
-Second dimens along which we could think about bug are the differ between a persist and an intermitt error

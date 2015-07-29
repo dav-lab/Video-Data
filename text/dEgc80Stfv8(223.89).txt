@@ -1,1 +1,0 @@
-Exception and I will to deal with that what I can do is emb those statement insid of the bodi of a tri statement follow by some code that will deal with the except

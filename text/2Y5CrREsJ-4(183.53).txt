@@ -1,1 +1,0 @@
-In a compil languag those abstract are then first check a they did befor but then convert back into low level code

@@ -1,1 +1,0 @@
-I then take that first path at front of the set and I do the same thing and recurs repeat that

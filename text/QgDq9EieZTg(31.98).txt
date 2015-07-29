@@ -1,1 +1,0 @@
-Let start with the iter version iterMul we know termin becaus b start out initi posit and each time through the loop it decreas by 1

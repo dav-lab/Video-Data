@@ -1,1 +1,0 @@
-Number express that combin number arithmet way to compar object like number Boolean oper on logic express way to abstract express by give them name string or collect of charact and word and oper on them combin express in a linear manner and simpl way to make decis and to take differ option or branch base on those decis

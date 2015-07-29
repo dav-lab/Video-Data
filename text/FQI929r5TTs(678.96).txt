@@ -1,1 +1,0 @@
-Binari search merg sort breadth-first and depth-first search are exampl of specif algorithm that come from differ class of algorithm

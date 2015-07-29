@@ -1,1 +1,0 @@
-Find the valu of the paramet for the predict that minim the sum of the squar of the error is a veri common thing to want to do to data point

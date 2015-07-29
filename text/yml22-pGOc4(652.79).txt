@@ -1,1 +1,0 @@
-I teach non-photo realist render where we start from a normal photograph a input and then we simul brush stroke use random number generat pretti much the same you use for Mont Carlo simul and then we obtain the follow painter render

@@ -1,1 +1,0 @@
-I got a littl loop where i is walk from 0 up to the length of the list or 1 le than the length of the list

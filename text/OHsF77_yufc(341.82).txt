@@ -1,1 +1,0 @@
-We go to have some start node we go to have some goal node that we tri to get to and depth first search is go to take in a graph a start node and an end node and it go to take in anoth argument which may initi just be the empti list which is the path that is the sequenc of node that I current explor

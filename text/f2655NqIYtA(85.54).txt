@@ -1,1 +1,0 @@
-Well what we want to do is to find a collect of input that have a high likelihood of reveal bug but where the test is actual go to be pretti effici

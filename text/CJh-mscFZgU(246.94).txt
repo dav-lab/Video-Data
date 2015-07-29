@@ -1,1 +1,0 @@
-And this is go to look at an exampl of both where thing go wrong when I iter over list and how I get around that

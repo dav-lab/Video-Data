@@ -1,1 +1,0 @@
-A hash function convert that key into an integ and it then us this integ to index into a list

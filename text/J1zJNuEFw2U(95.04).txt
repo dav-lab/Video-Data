@@ -1,1 +1,0 @@
-Now what Newton show wa that for thing like polynomi if g is an approxim to the root the place where it equal to 0 then g - p / p is a better approxim where p is just the deriv of p

@@ -1,1 +1,0 @@
-Doe Python retriev element of the list in constant time Well let look at that

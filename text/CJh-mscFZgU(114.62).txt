@@ -1,1 +1,0 @@
-And it a method that in fact ha a side effect

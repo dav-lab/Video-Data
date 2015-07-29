@@ -1,1 +1,0 @@
-So inde whenev we do an assign statement that simpli pair a name and the valu of the other express togeth in a tabl if you want to think of it that way that we call an environ

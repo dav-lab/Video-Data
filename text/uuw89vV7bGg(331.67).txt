@@ -1,1 +1,0 @@
-And then final isPalindrom simpli us toChar to convert the string call isPal on that and return the answer comput by that a the answer to the overal solut

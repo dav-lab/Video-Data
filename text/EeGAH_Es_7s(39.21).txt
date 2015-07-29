@@ -1,1 +1,0 @@
-A glass-box test suit a good one is call path-complet if everi possibl path through the code is test at least onc

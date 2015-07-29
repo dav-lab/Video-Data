@@ -1,1 +1,0 @@
-So the mortgag base class rememb the princip amount of the loan and it comput the month percentag rate from the annual interest rate that wa pass in

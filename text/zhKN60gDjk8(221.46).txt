@@ -1,1 +1,0 @@
-It got a keyword def that tell Python I about to creat a definit of the procedur

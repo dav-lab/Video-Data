@@ -1,1 +1,0 @@
-And the way I use it is that I simpli whether in a Python shell or in anoth file say let me import thing in

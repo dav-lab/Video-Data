@@ -1,1 +1,0 @@
-We also introduc a formal call environ to help u visual how use function within a Python interpret control the assign of name to valu how those valu are retriev and how we can use those idea to conceptu new algorithm

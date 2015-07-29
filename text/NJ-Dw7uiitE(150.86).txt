@@ -1,1 +1,0 @@
-Similar there a way of call a function where we actual suppli a list of argument a a sequenc direct a a sequenc rather than list them out one at a time

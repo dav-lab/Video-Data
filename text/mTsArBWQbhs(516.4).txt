@@ -1,1 +1,0 @@
-Find a set of note for which there a path or often a path with the maximum length between everi pair in the set

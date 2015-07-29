@@ -1,1 +1,0 @@
-Some optim problem exhibit properti which if they were true allow u to come up with a much more comput effici way to solv the problem

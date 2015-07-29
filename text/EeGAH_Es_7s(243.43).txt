@@ -1,1 +1,0 @@
-If I got a recurs function I want to test what happen if there no recurs call it just the base case

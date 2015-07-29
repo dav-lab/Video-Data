@@ -1,1 +1,0 @@
-I encourag you to learn more about the statist tool that are avail in Pylab

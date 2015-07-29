@@ -1,1 +1,0 @@
-So over here we have this function again and it the exact same a befor except now we set this equal sign and some number after a few of these variabl name

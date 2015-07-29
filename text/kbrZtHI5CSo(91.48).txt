@@ -1,1 +1,0 @@
-And so what we want to do is to think about how to express the solut for this function a a combin of solut to subproblem

@@ -1,1 +1,0 @@
-Here a generat that will produc success for each call to next all the number in the Fibonacci sequenc

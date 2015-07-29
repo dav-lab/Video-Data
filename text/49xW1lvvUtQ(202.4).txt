@@ -1,1 +1,0 @@
-But then instead of return that number it take the number mod tabl size therefor guarante that it is no bigger that 100

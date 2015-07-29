@@ -1,1 +1,0 @@
-Here I have an idl buffer that contain my class definit of inset which is what I call my new type of object which repres a set of integ

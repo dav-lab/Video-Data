@@ -1,1 +1,0 @@
-And factori is basic the product of the integ from 1 time 2 time 3 all the way up to n

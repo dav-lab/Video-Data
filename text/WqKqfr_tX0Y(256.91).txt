@@ -1,1 +1,0 @@
-Here is a veri nice littl algorithm for search a list use binari search

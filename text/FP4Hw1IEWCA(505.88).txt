@@ -1,1 +1,0 @@
-What testError doe is for the number of trial that we ask for in this case the default valu for trial is 10,000 it will go off and select a certain number of point in this case 100 from a particular probabl distribut in this case a triangular distribut that go between -1 and 1

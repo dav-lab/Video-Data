@@ -1,1 +1,0 @@
-In binari it would be 0.375 which would be 3 * 10^-1 or 1/10 + 2 * 1/100 + 5 * 1/1,000

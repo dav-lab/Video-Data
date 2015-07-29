@@ -1,1 +1,0 @@
-The function estPi call getEst with an ever-grow number of needl until getEst return an estim back with a confid interv that with a confid of 95 is within precis of the actual valu

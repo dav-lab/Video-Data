@@ -1,1 +1,0 @@
-A function is go to give u a way to captur a comput to wrap it up in a packag and then treat that function a if it were a primit

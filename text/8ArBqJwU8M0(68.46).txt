@@ -1,1 +1,0 @@
-So when we use the name of a class in this case student use it like a procedur call in this case by pass an argument the string `` Beaver what Python doe is it creat a new object of type Student and then call init method for that object with this argument

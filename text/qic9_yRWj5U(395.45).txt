@@ -1,1 +1,0 @@
-Becaus the scope within which a variabl ha a valu is defin by the extent of the code boundari

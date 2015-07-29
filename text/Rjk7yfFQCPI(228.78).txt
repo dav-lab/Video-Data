@@ -1,1 +1,0 @@
-Well for point 1 and 2 I can avoid those by measur time not in term of actual elaps time but in term of the number of basic step that the comput execut

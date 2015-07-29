@@ -1,1 +1,0 @@
-And the idea is that for everi node a I build the graph up I want to know to what other node can that node connect And I go to use that with a dictionari

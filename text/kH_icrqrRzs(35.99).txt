@@ -1,1 +1,0 @@
-We will introduc you to a Python librari PyLab that provid featur that make it relat easi to analyz data and present the result a plot

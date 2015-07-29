@@ -1,1 +1,0 @@
-And for that we go to assum assign comparison arithmet oper and access an object in memori all take a constant amount of time

@@ -1,1 +1,0 @@
-In other word if we find ourselv comput the answer for the same sub-problem again and again and again

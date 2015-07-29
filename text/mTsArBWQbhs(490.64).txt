@@ -1,1 +1,0 @@
-The destin node of the last edg is N2 and for everi sequenc in that the shortest path the sourc node of EB is the destin node of EA

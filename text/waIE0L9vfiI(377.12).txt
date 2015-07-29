@@ -1,1 +1,0 @@
-On simpl branch structur we alreadi said that program like that are constant time that is we execut each instruct at most onc

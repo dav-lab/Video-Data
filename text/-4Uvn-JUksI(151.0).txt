@@ -1,1 +1,0 @@
-If answer cube is le than x we know that we not there

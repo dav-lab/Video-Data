@@ -1,1 +1,0 @@
-And so what we go to do is divid up the set of all possibl input into a group of subset with the properti that each element of the set is in exact one subset

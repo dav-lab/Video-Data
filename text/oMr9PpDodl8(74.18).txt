@@ -1,1 +1,0 @@
-We went out to the web to find the formula we can use to comput the month payment for a mortgag of size loan at a month rate of r for n month

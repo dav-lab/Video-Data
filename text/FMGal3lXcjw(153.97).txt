@@ -1,1 +1,0 @@
-It say if the remaind of x divid by 2 is 0 that say if I divid that x by 2 there is no remaind

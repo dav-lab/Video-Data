@@ -1,1 +1,0 @@
-And then for t in rang number of trial it creat a new field add a drunk to the field and then call Walk get the number of step and append it to Distanc which eventu it return

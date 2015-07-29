@@ -1,1 +1,0 @@
-We observ that the standard deviat should alway be view in the context of the mean and therefor is not particular use for compar the varianc of set with wide diverg mean

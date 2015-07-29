@@ -1,1 +1,0 @@
-So if I evalu in Python these two procedur definit they creat for me bind of the name `` and the name `` And they both to procedur which is great

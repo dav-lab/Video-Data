@@ -1,1 +1,0 @@
-And then think about how to break a problem down into sub-problem which we can then relat to other problem for which there alreadi exist effici algorithm

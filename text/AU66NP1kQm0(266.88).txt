@@ -1,1 +1,0 @@
-And we use big O a a way to give an upper bound on the asymptot growth of a function

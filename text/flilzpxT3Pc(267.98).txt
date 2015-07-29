@@ -1,1 +1,0 @@
-The function clear ha three argument n the initi number of molecul the probabl of a molecul be clear at each step and the number of step

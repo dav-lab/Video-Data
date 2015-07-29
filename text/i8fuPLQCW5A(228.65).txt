@@ -1,1 +1,0 @@
-So the onli hard part of write the code is to figur out how to generat all possibl combin of N item

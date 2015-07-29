@@ -1,1 +1,0 @@
-I input it and to make sure it an integ by do a cast or a type convers on it

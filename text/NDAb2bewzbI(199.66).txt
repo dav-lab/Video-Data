@@ -1,1 +1,0 @@
-So if we put those togeth multipli them togeth we end up with order O 2^N

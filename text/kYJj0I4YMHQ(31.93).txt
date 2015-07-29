@@ -1,1 +1,0 @@
-And when we find a new path we keep go onli if that path is still shorter than the best thing we seen so far

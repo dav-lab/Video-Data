@@ -1,1 +1,0 @@
-And a hash function is someth that say that we can do a look-up in an amount of time that almost independ of the size of the dictionari almost

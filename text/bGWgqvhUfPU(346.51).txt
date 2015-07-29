@@ -1,1 +1,0 @@
-We can now put this togeth to creat a merg sort algorithm and that is go to be someth that go to do sort by break down the list into sub-list sort each one of those and then merg the result togeth use the merg oper

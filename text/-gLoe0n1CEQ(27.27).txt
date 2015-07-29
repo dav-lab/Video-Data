@@ -1,1 +1,0 @@
-Again we check to see if the first and last charact are the same they are and that reduc to check a smaller thing

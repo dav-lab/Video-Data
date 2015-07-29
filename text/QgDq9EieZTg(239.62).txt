@@ -1,1 +1,0 @@
-The induct step say that we need to now assum that this statement is true for some valu let call it k

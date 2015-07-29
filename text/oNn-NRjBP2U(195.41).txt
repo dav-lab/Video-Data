@@ -1,1 +1,0 @@
-So now that I think more clear I realiz when I think through my type hierarchi I want to make sure that if I have a bunch of behavior that I want to be true of a whole set of my type that I wise to use the type hierarchi so that I can implement the behavior associ with all student not individu in each student but collect in the super class

@@ -1,1 +1,0 @@
-So if we start off with a list of element like what shown here in the first stage we go to split it into two part

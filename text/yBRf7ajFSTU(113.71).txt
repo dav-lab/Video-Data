@@ -1,1 +1,0 @@
-And here I have a new procedur fitData1 which us polyfit to fit a cubic equat to the observ data

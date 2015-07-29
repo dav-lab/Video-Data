@@ -1,1 +1,0 @@
-And we often refer to this style of think or program a higher order program where we are treat function a if they element of data structur and appli function to them

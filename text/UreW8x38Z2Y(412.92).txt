@@ -1,1 +1,0 @@
-June by 1 and if at the end of the trial it wa at least 48 then we increment june48 by 1 and when we done we comput the probabl a usual by divid by the number of trial and print the result

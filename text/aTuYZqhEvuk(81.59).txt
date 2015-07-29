@@ -1,1 +1,0 @@
-And those variabl updat or chang their valu on each iter through the loop

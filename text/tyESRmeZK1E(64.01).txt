@@ -1,1 +1,0 @@
-So that mean that the MIT person will have whatev attribut are defin below in addit to whatev attribut were defin by Person and then also by object becaus Person wa a subclass of object

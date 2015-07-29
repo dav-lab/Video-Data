@@ -1,1 +1,0 @@
-Well we need for each combin in the list of all possibl combin we are go to have to do anoth set of calcul which is whose cost is shown in 2
