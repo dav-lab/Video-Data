@@ -1,0 +1,1 @@
+the code to do better So in fact we go to split up our test into two differ kind of test One is go to use heurist base on explor path through the specif We call that black box test The second one is go to use heurist base on explor path through the code itself We call that glass box test And so we go to take now this idea of partit up the space and

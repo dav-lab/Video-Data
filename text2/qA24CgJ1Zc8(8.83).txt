@@ -1,0 +1,1 @@
+ERIC GRIMSON OK So we now seen how to creat simpl express We can take object that are number like integ or float We can combin them togeth with oper so we say plus or plus all in parenthesi time That give u a way of do some simpl comput but it pretti bore It basic say we got a calcul So we can type in express and get out valu But we like to obvious do more

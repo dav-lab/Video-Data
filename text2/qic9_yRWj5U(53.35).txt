@@ -1,0 +1,1 @@
+I go to then print out the current valu of x that x is equal to sorri I print out the string x is equal to and then the actual valu of x And then I go to return the valu of x And now insid of Python I set x to I set y to And I sorri I mistyp that So let do that proper There y is equal to And I bind z to be f x

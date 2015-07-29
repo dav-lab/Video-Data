@@ -1,0 +1,1 @@
+I want to see so whi doe that happen Whi is it that x is now return an intern valu of here But extern is And z is And y is equal to So whi doe this happen This is go to give u a chanc again to look at what happen insid of the bind So let look in detail at what happen here I creat a definit of f And in my global environ for Python that say I got a bind of f to that procedur

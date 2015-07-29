@@ -1,0 +1,1 @@
+go to return the path And that allow me to go from a start node to follow down to some node to look at each of the child in turn to see is there a path that lead to the goal node And you can go tri this if you want to take the code and actual run it to see how it explor in a depth first fashion graph such a the graph we
